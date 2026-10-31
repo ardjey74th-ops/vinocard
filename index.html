@@ -218,9 +218,9 @@ h1 {
 .vial{position:relative;width:38px;height:70px;overflow:hidden;isolation:isolate;clip-path:polygon(38% 0,62% 0,62% 23%,74% 30%,91% 43%,100% 60%,100% 91%,91% 100%,9% 100%,0 91%,0 60%,9% 43%,26% 30%,38% 23%);background:linear-gradient(100deg,rgba(255,255,255,.24),rgba(255,255,255,.04) 32%,rgba(255,255,255,.13) 65%,rgba(0,0,0,.2));border:1px solid rgba(230,211,166,.45);filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
 .vial:before{content:"";position:absolute;inset:1px;background:var(--panel);clip-path:polygon(38% 0,62% 0,62% 23%,74% 30%,91% 43%,100% 60%,100% 91%,91% 100%,9% 100%,0 91%,0 60%,9% 43%,26% 30%,38% 23%);z-index:-1}
 .vial-liquid{position:absolute;left:4px;right:4px;bottom:4px;height:0%;transition:height .55s cubic-bezier(.22,.8,.25,1);opacity:.98;overflow:hidden;background:none!important;clip-path:none!important;will-change:height}
-.vial-stat[data-vial="red"] .liquid-body{fill:url(#liquidRed)}
-.vial-stat[data-vial="white"] .liquid-body{fill:url(#liquidWhite)}
-.vial-stat[data-vial="rose"] .liquid-body{fill:url(#liquidRose)}
+.vial-stat[data-vial="red"] .liquid-body{fill:url(#liquidRed_r)}
+.vial-stat[data-vial="white"] .liquid-body{fill:url(#liquidWhite_w)}
+.vial-stat[data-vial="rose"] .liquid-body{fill:url(#liquidRose_o)}
 .vial-count{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font: bold 15px Georgia,serif;color:#fff;text-shadow:0 1px 4px #211015;opacity:0;transition:opacity .15s;background:rgba(15,8,10,.28);clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}
 .vial-stat:hover .vial-count,.vial-stat:focus-visible .vial-count{opacity:1}
 .vial-label{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
@@ -1372,10 +1372,10 @@ header .theme-trigger:hover,header #adminBtn:hover {
 .quantity-control select {
     max-width:90px
 }
-    {
+50% {
         transform:rotate(5deg) translateY(-5px)
     }
-
+}
 .radar-control input[type=range]::-webkit-slider-thumb {
     -webkit-appearance:none;
     width:18px;
@@ -1810,7 +1810,7 @@ header{position:relative;min-height:250px;align-items:flex-start;padding-top:18p
 .vial{width:114px;height:210px;border-width:2px;filter:drop-shadow(0 8px 12px rgba(0,0,0,.35));background:linear-gradient(100deg,rgba(255,255,255,.28),rgba(255,255,255,.035) 32%,rgba(255,255,255,.17) 65%,rgba(0,0,0,.25))}
 .vial:before{inset:2px}
 .vial-liquid{left:4px;right:4px;bottom:4px;transition:height .7s cubic-bezier(.22,.8,.25,1)}
-to{transform:translateX(12%) rotate(6deg)}
+to{transform:translateX(12%) rotate(6deg)}}
 .vial-count{font-size:25px;backdrop-filter:blur(1px)}
 .vial-label{font-size:12px;letter-spacing:.12em}
 .theme-picker{padding-bottom:10px;margin-bottom:-10px}
@@ -1943,36 +1943,17 @@ body:before{display:none!important}
 <body>
 <div class="wrap">
 <header>
-<div class="brand-block">
-<div class="brand" id="brandText">V I N O T H È Q U E</div>
-<div class="topnote" id="brandSubtitle">ЛИЧНЫЙ ВИННЫЙ АРХИВ</div>
-</div>
-
+<div class="header-spacer" aria-hidden="true"></div>
+<div class="header-logo" id="brandText">VINOCARD</div>
 <div class="header-actions">
 <div class="theme-picker">
 <button type="button" class="theme-trigger" id="themeTrigger" aria-label="Выбрать цветовую палитру" aria-expanded="false" title="Сменить палитру">
-<span class="theme-moon" aria-hidden="true">
-</span>
+<span class="theme-moon" aria-hidden="true"></span>
 </button>
 <div class="theme-switch" id="themeSwitch" aria-label="Выбор цветовой палитры" hidden>
-<button class="theme-btn active" data-set-theme="red" title="Бордовая палитра" aria-label="Бордовая палитра">
-<span class="wine-glass red-glass">
-<i>
-</i>
-</span>
-</button>
-<button class="theme-btn" data-set-theme="white" title="Светлая палитра" aria-label="Светлая палитра">
-<span class="wine-glass white-glass">
-<i>
-</i>
-</span>
-</button>
-<button class="theme-btn" data-set-theme="rose" title="Розовая палитра" aria-label="Розовая палитра">
-<span class="wine-glass rose-glass">
-<i>
-</i>
-</span>
-</button>
+<button class="theme-btn active" data-set-theme="red" title="Бордовая палитра" aria-label="Бордовая палитра"><span class="wine-glass red-glass"><i></i></span></button>
+<button class="theme-btn" data-set-theme="white" title="Светлая палитра" aria-label="Светлая палитра"><span class="wine-glass white-glass"><i></i></span></button>
+<button class="theme-btn" data-set-theme="rose" title="Розовая палитра" aria-label="Розовая палитра"><span class="wine-glass rose-glass"><i></i></span></button>
 </div>
 </div>
 <button class="btn secondary settings-icon" id="adminBtn" aria-label="Настройки" title="Настройки">
@@ -1980,14 +1961,6 @@ body:before{display:none!important}
 </button>
 </div>
 </header>
-<div class="bottle-stage">
-<div class="wine-vials" id="wineVials" aria-label="Состав коллекции по цветам вина">
-<div class="vial-stat" data-vial="red" tabindex="0" aria-label="Красные вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
-<div class="vial-stat" data-vial="white" tabindex="0" aria-label="Белые вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
-<div class="vial-stat" data-vial="rose" tabindex="0" aria-label="Розовые вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
-</div>
-
-</div>
 <section class="hero">
 <div>
 
@@ -2000,6 +1973,14 @@ body:before{display:none!important}
 <strong id="countryStat">0</strong>
 <span>СТРАН</span>
 </div>
+</div>
+<div class="bottle-stage">
+<div class="wine-vials" id="wineVials" aria-label="Состав коллекции по цветам вина">
+<div class="vial-stat" data-vial="red" tabindex="0" aria-label="Красные вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed_r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite_r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose_r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
+<div class="vial-stat" data-vial="white" tabindex="0" aria-label="Белые вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed_w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite_w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose_w" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
+<div class="vial-stat" data-vial="rose" tabindex="0" aria-label="Розовые вина"><div class="vial" aria-hidden="true"><span class="vial-liquid"><svg class="liquid-svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="liquidRed_o" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5b1020"/><stop offset=".28" stop-color="#92263b"/><stop offset=".58" stop-color="#b73d51"/><stop offset="1" stop-color="#5b1020"/></linearGradient><linearGradient id="liquidWhite_o" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a18438"/><stop offset=".32" stop-color="#e8cf79"/><stop offset=".58" stop-color="#f8e7a4"/><stop offset="1" stop-color="#a18438"/></linearGradient><linearGradient id="liquidRose_o" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9e3c55"/><stop offset=".32" stop-color="#dc7890"/><stop offset=".58" stop-color="#f2a8b6"/><stop offset="1" stop-color="#9e3c55"/></linearGradient></defs><path class="liquid-body" d="M0 12 L100 12 L100 100 L0 100 Z"/><path class="liquid-highlight" d="M0 12 L100 12"/><path class="liquid-glint" d="M8 24 L8 76"/></svg></span><span class="vial-count">0</span></div></div>
+</div>
+
 </div>
 </div>
 </section>
@@ -2017,31 +1998,39 @@ body:before{display:none!important}
 <label class="filter-control search-control"><span>Поиск</span><input id="search" placeholder="Название, страна, сорт…"></label>
 <label class="filter-control"><span>Страна</span><select id="country"><option value="">Выбрать страну</option></select></label>
 <label class="filter-control"><span>Цвет</span><select id="color"><option value="">Выбрать цвет</option></select></label>
-<label class="filter-control"><span>Сахар</span><select id="taste"><option value="">Выбрать</option></select></label>
-<label class="filter-control"><span>Виноград</span><select id="variety"><option value="">Выбрать сорт</option></select></label>
+<label class="filter-control"><span>Вкус</span><select id="taste"><option value="">Выбрать</option></select></label>
+<label class="filter-control"><span>Сорт</span><select id="variety"><option value="">Любой</option></select></label>
 <div class="filter-control price-filter" id="priceFilter"><span>Цена</span><button type="button" class="price-trigger" id="priceTrigger">Любая цена</button>
 <div class="price-popover" id="pricePopover">
 <div class="price-values"><label>От <input id="priceMin" type="number" min="0" max="10000" placeholder="0"></label><label>До <input id="priceMax" type="number" min="0" max="10000" placeholder="10 000"></label></div>
 <div class="dual-range"><div class="range-track"></div><div class="range-fill" id="priceRangeFill"></div><input id="priceMinRange" type="range" min="0" max="10000" step="50" value="0" aria-label="Цена от"><input id="priceMaxRange" type="range" min="0" max="10000" step="50" value="10000" aria-label="Цена до"></div>
 <div class="price-actions"><button type="button" id="priceReset">Сбросить</button><button type="button" id="priceApply">Применить</button></div>
 </div></div>
-<label class="filter-control sort-control"><span>Сортировка</span><select id="sort"><option value="name">По названию</option><option value="priceAsc">Сначала дешевле</option><option value="priceDesc">Сначала дороже</option><option value="rating">По рейтингу</option><option value="year">По винтажу</option></select></label>
+<label class="filter-control sort-control"><span>Сортировка</span><select id="sort"><option value="name">По названию</option><option value="priceAsc">Сначала дешевле</option><option value="priceDesc">Сначала дороже</option><option value="ratingBest">По рейтингу: лучшее</option><option value="ratingWorst">По рейтингу: худшее</option><option value="yearNewer">Винтаж: моложе</option><option value="yearOlder">Винтаж: старше</option></select></label>
 <label class="quantity-control">Кол-во <select id="pageSize"><option value="9">9</option><option value="12" selected>12</option><option value="18">18</option><option value="24">24</option><option value="all">Все</option></select></label>
 </div>
 <div id="activeFilters" class="active-filters" aria-live="polite"></div>
-<div class="profile-actions" style="margin:14px 0">
-<button class="btn" id="addWineBtn" hidden>＋ Добавить вино</button>
-<button class="btn secondary" id="compareBtn" aria-pressed="false">Сравнить</button>
-</div>
 <section id="compareSection" class="compare-section" hidden>
 </section>
+<div class="catalog-bar">
+<button class="btn" id="addWineBtn" hidden>＋ Добавить вино</button>
+<button class="btn secondary" id="compareBtn" aria-pressed="false">Сравнить</button>
+<div class="pagination pagination-top" id="paginationTop">
+<div class="page-buttons">
+<button class="btn secondary" id="prevPageTop">← Назад</button>
+<span class="page-jump"><label>Стр. <input type="number" id="pageInputTop" min="1" value="1"></label></span>
+<span id="pageInfoTop" class="count"></span>
+<button class="btn secondary" id="nextPageTop">Вперёд →</button>
+</div>
+</div>
+</div>
 <div id="grid" class="grid">
 </div>
 <div class="pagination" id="pagination">
 <div class="page-buttons">
 <button class="btn secondary" id="prevPage">← Назад</button>
-<span id="pageInfo" class="count">
-</span>
+<span class="page-jump"><label>Стр. <input type="number" id="pageInput" min="1" value="1"></label></span>
+<span id="pageInfo" class="count"></span>
 <button class="btn secondary" id="nextPage">Вперёд →</button>
 </div>
 </div>
@@ -2119,18 +2108,18 @@ body:before{display:none!important}
 
 <script>
 const initialData = [{"Название": "Мади Бутс Шираз", "Страна": "Австралия", "Регион": "Юго-Восточная", "Винтаж": null, "Сорт": "Шираз", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.5, "Цена": 1259, "Рейтинг": 80}, {"Название": "Кэфер Блауэр Цвайгельт", "Страна": "Австрия", "Регион": "ЭДЭМ, рай", "Винтаж": 666, "Сорт": "Цвайгельт", "Вкус": "Творог", "Цвет": "Красное", "Алк%": 12.5, "Цена": 1153, "Рейтинг": "100 из 10 самый вкусный молочный продукт"}, {"Название": "Кэфер Грюнер Вельтлинер", "Страна": "Австрия", "Регион": "Нижняя Австрия", "Винтаж": null, "Сорт": "Грюнер вельтлинер", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 1173, "Рейтинг": 69}, {"Название": "Джэм Шэд Мальбек", "Страна": "Аргентина", "Регион": "Мендоса", "Винтаж": 2019, "Сорт": "Мальбек", "Вкус": "п/сладкое", "Цвет": "Красное", "Алк%": 13.5, "Цена": 1127, "Рейтинг": null}, {"Название": "Торронтес Ума Вайн Бар", "Страна": "Аргентина", "Регион": null, "Винтаж": null, "Сорт": "Торронтес", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 13.0, "Цена": 916, "Рейтинг": null}, {"Название": "Токай Фурминт", "Страна": "Венгрия", "Регион": "Токай", "Винтаж": null, "Сорт": "Фурминт", "Вкус": "п/сладкое", "Цвет": "Белое", "Алк%": 10.5, "Цена": 1250, "Рейтинг": 90}, {"Название": "Шато Дересла Токай Самородний белое сухое", "Страна": "Венгрия", "Регион": "Токай", "Винтаж": null, "Сорт": "фурминт, харшевелю", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 13.0, "Цена": 2370, "Рейтинг": 100}, {"Название": "Склавос. Алхимист", "Страна": "Греция", "Регион": "Кефалония", "Винтаж": 2021, "Сорт": "Родитис, Востилиди,\nМускатела", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 2272, "Рейтинг": 100}, {"Название": "кагор метеора", "Страна": "Греция", "Регион": "Метеора", "Винтаж": 2024, "Сорт": "Каберне Совиньон, Сира", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 14.5, "Цена": 2144, "Рейтинг": 100}, {"Название": "Флауэрс Ассиртико", "Страна": "Греция", "Регион": null, "Винтаж": null, "Сорт": "Ассиртико", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 1734, "Рейтинг": 85}, {"Название": "Самос", "Страна": "Греция", "Регион": null, "Винтаж": null, "Сорт": "Мускат", "Вкус": "Сладкое", "Цвет": "Белое", "Алк%": 15.0, "Цена": 2068, "Рейтинг": 90}, {"Название": "Ионос", "Страна": "Греция", "Регион": null, "Винтаж": null, "Сорт": "Каберне Совиньон, Мерло", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 12.0, "Цена": 1659, "Рейтинг": 50}, {"Название": "Марцемино", "Страна": "Италия", "Регион": "Эмилия-Романья", "Винтаж": null, "Сорт": "Марцемино", "Вкус": "п/сладкое", "Цвет": "Красное", "Алк%": 8.5, "Цена": 1099, "Рейтинг": 80}, {"Название": "Казасоле Орвието ДОК Классико", "Страна": "Италия", "Регион": "Умбрия", "Винтаж": 2018, "Сорт": "Грекетто,\nПроканико", "Вкус": "п/сладкое", "Цвет": "Белое", "Алк%": 12.0, "Цена": 1559, "Рейтинг": 75}, {"Название": "Казеллетти Рамоне Аппассименто", "Страна": "Италия", "Регион": null, "Винтаж": null, "Сорт": "Мерло, негроамаро,\nпримитиво", "Вкус": "п/сухое", "Цвет": "Красное", "Алк%": 14.0, "Цена": 969, "Рейтинг": 60}, {"Название": "Фалерио. Фонтедзоппа Джоко Пекорино", "Страна": "Италия", "Регион": null, "Винтаж": null, "Сорт": "Пекорино", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 13.0, "Цена": 2093, "Рейтинг": 35}, {"Название": "Cusumano, Lucido Terre Siciliane IGT", "Страна": "Италия", "Регион": "Сицилия", "Винтаж": 2024, "Сорт": "Катарратто", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.0, "Цена": 2590, "Рейтинг": null}, {"Название": "Марсала", "Страна": "Италия", "Регион": "Сицилия", "Винтаж": null, "Сорт": "Грилло, Катарратто и Инзолия", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 18.0, "Цена": 2000, "Рейтинг": 100}, {"Название": "СанВито Грилло Сицилия", "Страна": "Италия", "Регион": "Сицилия", "Винтаж": null, "Сорт": "Грилло", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 1253, "Рейтинг": 90}, {"Название": "Кэфер Мерло", "Страна": "Италия", "Регион": "Сицилия", "Винтаж": null, "Сорт": "Мерло", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.0, "Цена": 1435, "Рейтинг": null}, {"Название": "Мучо Мас", "Страна": "Испания", "Регион": null, "Винтаж": null, "Сорт": "Сира, Темпранильо", "Вкус": "п/сухое", "Цвет": "Красное", "Алк%": 13.5, "Цена": 1099, "Рейтинг": null}, {"Название": "Алехандро Крим", "Страна": "Испания", "Регион": "Андалусия", "Винтаж": null, "Сорт": "Паломино Фино, Педро Хименес", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 17.5, "Цена": 1599, "Рейтинг": 55}, {"Название": "Алехандро Шерри Медиум", "Страна": "Испания", "Регион": "Андалусия", "Винтаж": null, "Сорт": null, "Вкус": null, "Цвет": "Красное", "Алк%": 17.5, "Цена": 1600, "Рейтинг": 0}, {"Название": "Алехандро Шерри ОЛОРОСО", "Страна": "Испания", "Регион": "Андалусия", "Винтаж": null, "Сорт": null, "Вкус": null, "Цвет": "Красное", "Алк%": 18.0, "Цена": 1600, "Рейтинг": 0}, {"Название": "Вале д`Эсте Виньо Верде", "Страна": "Португалия", "Регион": "Минью\nВиньо Верде", "Винтаж": null, "Сорт": "Виньяу, амарал,\nборракал", "Вкус": "п/сухое", "Цвет": "Розовое", "Алк%": 10.0, "Цена": 1830, "Рейтинг": 75}, {"Название": "Вальдоуру Розе Порт", "Страна": "Португалия ", "Регион": "Порту", "Винтаж": null, "Сорт": null, "Вкус": null, "Цвет": "Розовое", "Алк%": 19.5, "Цена": null, "Рейтинг": 75}, {"Название": "Вальдоуру Вайт Порт", "Страна": "Португалия ", "Регион": "Дору", "Винтаж": null, "Сорт": "\nВиозиньо, Мальвазия Фина, Рабигату", "Вкус": "Сладкое", "Цвет": "Белое", "Алк%": 19.0, "Цена": 1659, "Рейтинг": 80}, {"Название": "Гатао", "Страна": "Португалия", "Регион": null, "Винтаж": null, "Сорт": "Аринто, Мальвазия Фина, Гувейо", "Вкус": "п/сухое", "Цвет": "Белое", "Алк%": 12.0, "Цена": 1863, "Рейтинг": null}, {"Название": "Вальдоуру Тоуни Порт", "Страна": "Португалия ", "Регион": "Порту", "Винтаж": null, "Сорт": "Тинта Као, Тинта Рориш, Турига Насьональ", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 19.0, "Цена": 1659, "Рейтинг": 80}, {"Название": "Вальдоуру Руби Порт", "Страна": "Португалия ", "Регион": "Порту", "Винтаж": null, "Сорт": "\nТинта Као, Тинта Рориш, Турига Франсеса/Турига Франка", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 19.0, "Цена": 1659, "Рейтинг": 80}, {"Название": "Портвейн Андресен Файн Руби", "Страна": "Португалия ", "Регион": "Дору", "Винтаж": null, "Сорт": "\nТинта Баррока, Тинта Рориш", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 19.5, "Цена": 1699, "Рейтинг": 90}, {"Название": "Мадера. Блендис. \"Дьюк оф Кларенс\" Рич", "Страна": "Португалия ", "Регион": "остров Мадейра", "Винтаж": null, "Сорт": "Тинта негра моле", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 19.0, "Цена": 3200, "Рейтинг": 90}, {"Название": "Казаль Мендеш. Винью Верде", "Страна": "Португалия", "Регион": "Вино верде", "Винтаж": null, "Сорт": "Азал, Педерна", "Вкус": "п/сухое", "Цвет": "Белое", "Алк%": 10.0, "Цена": 1200, "Рейтинг": 90}, {"Название": "Казал Гарсия Свит", "Страна": "Португалия", "Регион": "Вино верде", "Винтаж": null, "Сорт": "Аринто, Лоурейру, Азал", "Вкус": "Сладкое", "Цвет": "Белое", "Алк%": 9.0, "Цена": 1259, "Рейтинг": 90}, {"Название": "Магнат Альвариньо", "Страна": "Португалия", "Регион": "Вино верде", "Винтаж": 2023, "Сорт": "Альвариньо", "Вкус": "п/сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 1523, "Рейтинг": 90}, {"Название": "Портвейн CALEM 10 лет", "Страна": "Португалия", "Регион": "Дору", "Винтаж": "~2016", "Сорт": "Турига Насьональ, Тинта Рориз, \nТурига Франсеза (Франка), \nТинта Баррока, Тинта Као", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 20.0, "Цена": 6450, "Рейтинг": 95}, {"Название": "Портвейн Андресен Лейт Ботлд Винтейдж", "Страна": "Португалия", "Регион": "Дору", "Винтаж": null, "Сорт": "Тинта рориш, турига\nнасьональ,\nтурига франсеса/турига франка", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 20.0, "Цена": 3602, "Рейтинг": 100}, {"Название": "Портвейн Андресен Сенчури 10 лет", "Страна": "Португалия ", "Регион": "Дору", "Винтаж": null, "Сорт": "\nТинта Баррока, Тинта Рориш, \nТурига Франсеса/Турига Франка", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 20.0, "Цена": 3600, "Рейтинг": 100}, {"Название": "Порто Тони Инфантадо", "Страна": "Португалия ", "Регион": "Дору", "Винтаж": null, "Сорт": "\nТинта Рориз, Турига Насиональ, Турига Франка", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": "19.5%", "Цена": 3087, "Рейтинг": 0}, {"Название": "Порто Круз Руби", "Страна": "Португалия ", "Регион": null, "Винтаж": null, "Сорт": "\nТинта Рориш, Турига Насьональ, Турига Франсеса/Турига Франка", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 19.5, "Цена": 2465, "Рейтинг": null}, {"Название": "Корвос де Лисбоа", "Страна": "Португалия ", "Регион": "Лисбоа", "Винтаж": null, "Сорт": "Аликант Буше, Турига Насьональ, Сузао", "Вкус": "п/сухое", "Цвет": "Красное", "Алк%": 13.0, "Цена": 976, "Рейтинг": null}, {"Название": "МЗЫЫЫЫМТА", "Страна": "Россия", "Регион": null, "Винтаж": 2024, "Сорт": "Каберне савиньон, мерло, Молдова, Мерло", "Вкус": "п/сладкое", "Цвет": "Красное", "Алк%": 11.0, "Цена": 369, "Рейтинг": 69}, {"Название": "Шато Тамань Грейп Денс", "Страна": "Россия", "Регион": null, "Винтаж": null, "Сорт": "Бианка, Каберне Совиньон, Шардоне", "Вкус": "Сухое", "Цвет": "Розовое", "Алк%": 9.5, "Цена": 429, "Рейтинг": 50}, {"Название": "кагор гурзуф массандра", "Страна": "Россия", "Регион": null, "Винтаж": null, "Сорт": "Бастардо Магарачский, Каберне Совиньон, Саперави", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 16.0, "Цена": 745, "Рейтинг": 50}, {"Название": "Ixsir, Altitudes Rouge", "Страна": "Ливан", "Регион": "Долина Бекаа", "Винтаж": 2019, "Сорт": "Каберне Совиньон, Каладок\nСира, Темпранильо", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 14.0, "Цена": 2800, "Рейтинг": 85}, {"Название": "Флок де Гасконь Лафонтан АОС", "Страна": "Франция", "Регион": "Флок де Гасконь", "Винтаж": null, "Сорт": "каберне фран, мерло,\nтаннат", "Вкус": "Сладкое", "Цвет": "Белое", "Алк%": 16.5, "Цена": 3000, "Рейтинг": 90}, {"Название": "Барон Д`Ариньяк Карт Д`Ор Шардоне", "Страна": "Франция", "Регион": "Лангедок-Руссильон", "Винтаж": 2021, "Сорт": "Шардоне", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 11.5, "Цена": 1360, "Рейтинг": 80}, {"Название": "Ля Перрюш Шинон", "Страна": "Франция", "Регион": "Долина Луары", "Винтаж": 2020, "Сорт": "Каберне фран", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.0, "Цена": 3300, "Рейтинг": 35}, {"Название": "Луис Дюбуа 1885 Шардоне", "Страна": "Франция", "Регион": null, "Винтаж": null, "Сорт": "Шардоне", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": "12.5%", "Цена": 1504, "Рейтинг": 75}, {"Название": "Луис Дюбуа 1885 Пино Нуар", "Страна": "Франция", "Регион": null, "Винтаж": null, "Сорт": "Пино Нуар", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.0, "Цена": 1504, "Рейтинг": 70}, {"Название": "Ле Гран Нуар Пино Нуар", "Страна": "Франция", "Регион": "Лангедок-Руссильон", "Винтаж": 2019, "Сорт": "Пино Нуар", "Вкус": "п/сухое", "Цвет": "Красное", "Алк%": 12.5, "Цена": 1119, "Рейтинг": 90}, {"Название": "Жан Поль Шене Делишес Медиум Свит", "Страна": "Франция", "Регион": null, "Винтаж": null, "Сорт": "Гренаш, Кариньян, Сира", "Вкус": "п/сладкое", "Цвет": "Красное", "Алк%": 12.0, "Цена": 1199, "Рейтинг": null}, {"Название": "Хорнхед Мальбек Пэи Д`Ок ИГП", "Страна": "Франция", "Регион": "Лангедок-Руссильон", "Винтаж": 2018, "Сорт": "Мальбек", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.0, "Цена": 2017, "Рейтинг": 30}, {"Название": "Поль Мас Сира Пэи дОк ИГП", "Страна": "Франция", "Регион": "Лангедок-Руссильон", "Винтаж": 2017, "Сорт": "Шираз", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 13.5, "Цена": 1770, "Рейтинг": null}, {"Название": "Леро Пино Де Шарант Сигнатюр Уни Блан", "Страна": "Франция", "Регион": "Коньяк", "Винтаж": 2021, "Сорт": "\nКоломбар, Уни Блан", "Вкус": "Сладкое", "Цвет": "Красное", "Алк%": 18.0, "Цена": 3699, "Рейтинг": 90}, {"Название": "Ундуррага Шардоне", "Страна": "Чили", "Регион": null, "Винтаж": null, "Сорт": "Шардоне", "Вкус": "Сухое", "Цвет": "Белое", "Алк%": 12.5, "Цена": 819, "Рейтинг": 35}, {"Название": "Коно Сур Токорнал Карменер", "Страна": "Чили", "Регион": null, "Винтаж": null, "Сорт": "Каберне Совиньон, Карменер", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 12.0, "Цена": 719, "Рейтинг": 35}, {"Название": "Вестерн Кейп Кафе Калче Пинотаж", "Страна": "ЮАР", "Регион": null, "Винтаж": null, "Сорт": "Пинотаж", "Вкус": "Сухое", "Цвет": "Красное", "Алк%": 14.0, "Цена": 999, "Рейтинг": 41}];
-const PROFILE_AXES=["Кислотность", "Аромат", "Танинность", "Сладость", "Минеральность", "Тельность"];
-const PROFILE_DATA={"Марцемино": [2.0, 6.0, 5.0, 2.0, 0.0, 4.0], "Портвейн CALEM 10 лет": [0.0, 6.0, 1.0, 8.0, 0.0, 9.0], "Магнат Альвариньо": [2.0, 6.0, 0.0, 3.0, 6.0, 6.0], "Казаль Мендеш. Винью Верде": [2.0, 6.0, 0.0, 3.0, 6.0, 6.0], "Cusumano, Lucido Terre Siciliane IGT": [0.0, 4.0, 0.0, 2.0, 6.0, 5.0], "Ixsir, Altitudes Rouge": [3.0, 6.0, 2.0, 4.0, 2.0, 6.0], "Склавос. Алхимик": [4.0, 8.0, 2.0, 2.0, 2.0, 7.0], "Шато Тамань Грейп Денс": [5.0, 4.0, 0.0, 5.0, 1.0, 4.0], "Марсала": [2.0, 10.0, 3.0, 7.0, 0.0, 10.0], "Хорнхед Мальбек Пэи Д`Ок ИГП": [0.0, 3.0, 6.0, 0.0, 0.0, 2.0], "кагор гурзуф массандра": [0.0, 4.0, 1.0, 10.0, 0.0, 4.0], "Ля Перрюш Шинон": [2.0, 3.0, 7.0, 3.0, 0.0, 1.0], "Леро Пино Де Шарант Сигнатюр Уни Блан": [0.0, 6.0, 2.0, 7.0, 0.0, 10.0], "кагор метеора": [0.0, 8.0, 6.0, 7.0, 0.0, 10.0], "Портвейн Андресен Лейт Ботлд Винтейдж": [0.0, 6.0, 1.0, 6.0, 0.0, 7.0], "Портвейн Андресен Сенчури 10 лет": [0.0, 10.0, 3.0, 7.0, 2.0, 10.0], "Алехандро Шерри Медиум": [7.0, 0.0, 6.0, 0.0, 0.0, 1.0], "Алехандро Шерри ОЛОРОСО": [7.0, 0.0, 6.0, 0.0, 0.0, 1.0], "Гатао": [7.0, 5.0, 2.0, 2.0, 3.0, 4.0], "Казал Гарсия Свит": [2.0, 6.0, 0.0, 3.0, 6.0, 6.0]};
+const PROFILE_AXES=["Аромат", "Кислотность", "Минеральность", "Сладость", "Тельность", "Танинность"];
+const PROFILE_DATA={"Марцемино": [6.0, 2.0, 0.0, 2.0, 4.0, 5.0], "Портвейн CALEM 10 лет": [6.0, 0.0, 0.0, 8.0, 9.0, 1.0], "Магнат Альвариньо": [6.0, 2.0, 6.0, 3.0, 6.0, 0.0], "Казаль Мендеш. Винью Верде": [6.0, 2.0, 6.0, 3.0, 6.0, 0.0], "Cusumano, Lucido Terre Siciliane IGT": [4.0, 0.0, 6.0, 2.0, 5.0, 0.0], "Ixsir, Altitudes Rouge": [6.0, 3.0, 2.0, 4.0, 6.0, 2.0], "Склавос. Алхимик": [8.0, 4.0, 2.0, 2.0, 7.0, 2.0], "Шато Тамань Грейп Денс": [4.0, 5.0, 1.0, 5.0, 4.0, 0.0], "Марсала": [10.0, 2.0, 0.0, 7.0, 10.0, 3.0], "Хорнхед Мальбек Пэи Д`Ок ИГП": [3.0, 0.0, 0.0, 0.0, 2.0, 6.0], "кагор гурзуф массандра": [4.0, 0.0, 0.0, 10.0, 4.0, 1.0], "Ля Перрюш Шинон": [3.0, 2.0, 0.0, 3.0, 1.0, 7.0], "Леро Пино Де Шарант Сигнатюр Уни Блан": [6.0, 0.0, 0.0, 7.0, 10.0, 2.0], "кагор метеора": [8.0, 0.0, 0.0, 7.0, 10.0, 6.0], "Портвейн Андресен Лейт Ботлд Винтейдж": [6.0, 0.0, 0.0, 6.0, 7.0, 1.0], "Портвейн Андресен Сенчури 10 лет": [10.0, 0.0, 2.0, 7.0, 10.0, 3.0], "Алехандро Шерри Медиум": [0.0, 7.0, 0.0, 0.0, 1.0, 6.0], "Алехандро Шерри ОЛОРОСО": [0.0, 7.0, 0.0, 0.0, 1.0, 6.0], "Гатао": [5.0, 7.0, 3.0, 2.0, 4.0, 2.0], "Казал Гарсия Свит": [6.0, 2.0, 6.0, 3.0, 6.0, 0.0]};
 const KEY='vinotheque_prototype_v1';
 const SUPABASE_URL='https://wueuvlzqzkyoiacmcscs.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_ScffbPefIGseME5w889XPw_zz4iTosF';
 const SESSION_KEY='vinotheque_supabase_session_v1';
 let adminSession=null, cloudReady=false, cloudSaving=false, cloudCatalogEmpty=null;
-const SETTINGS_KEY='vinotheque_settings_v1';
-const DEFAULT_SETTINGS={brand:'V I N O T H È Q U E',subtitle:'ЛИЧНЫЙ ВИННЫЙ АРХИВ',eyebrow:'Коллекция · Вкус · История',headline:'У каждого вина\\nсвой характер.',intro:'Личный каталог вин — от повседневных находок до бутылок, которые запоминаются. Ищите, сравнивайте и изучайте коллекцию.',catalogTitle:'Винная карта'};
+const SETTINGS_KEY='vinotheque_settings_v2';
+const DEFAULT_SETTINGS={brand:'VINOCARD',subtitle:'',eyebrow:'Коллекция · Вкус · История',headline:'У каждого вина\\nсвой характер.',intro:'Личный каталог вин — от повседневных находок до бутылок, которые запоминаются. Ищите, сравнивайте и изучайте коллекцию.',catalogTitle:'Винная карта'};
 let siteSettings=loadSettings();
 function loadSettings(){try{return {...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}}catch(e){return {...DEFAULT_SETTINGS}}}
-function applySettings(){ if($('brandText'))$('brandText').textContent=siteSettings.brand; if($('brandSubtitle'))$('brandSubtitle').textContent=siteSettings.subtitle; const heroEyebrow=document.querySelector('.hero .eyebrow'); if(heroEyebrow)heroEyebrow.textContent=siteSettings.eyebrow; if($('heroHeadline'))$('heroHeadline').innerHTML=esc(siteSettings.headline).replace(/\\n/g,'<br>'); if($('heroIntro'))$('heroIntro').textContent=siteSettings.intro; if($('catalogHeading'))$('catalogHeading').textContent=siteSettings.catalogTitle; }
+function applySettings(){ if($('brandText'))$('brandText').textContent='VINOCARD'; if($('brandSubtitle'))$('brandSubtitle').textContent=siteSettings.subtitle; const heroEyebrow=document.querySelector('.hero .eyebrow'); if(heroEyebrow)heroEyebrow.textContent=siteSettings.eyebrow; if($('heroHeadline'))$('heroHeadline').innerHTML=esc(siteSettings.headline).replace(/\\n/g,'<br>'); if($('heroIntro'))$('heroIntro').textContent=siteSettings.intro; if($('catalogHeading'))$('catalogHeading').textContent=siteSettings.catalogTitle; }
 function setTheme(theme){if(!['red','white','rose'].includes(theme))theme='red';document.body.dataset.theme=theme;localStorage.setItem('vinotheque_theme_v1',theme);document.querySelectorAll('[data-set-theme]').forEach(b=>b.classList.toggle('active',b.dataset.setTheme===theme))}
 function openSettings(){ $('settingBrand').value=siteSettings.brand; $('settingSubtitle').value=siteSettings.subtitle; $('settingHeadline').value=siteSettings.headline; $('settingIntro').value=siteSettings.intro; $('settingEyebrow').value=siteSettings.eyebrow; $('settingCatalogTitle').value=siteSettings.catalogTitle; $('settingsBack').style.display='flex'}
 let wines = loadData(), editingIndex=null;
@@ -2145,15 +2134,27 @@ async function loadCloudCatalog(){cloudCatalogEmpty=null;try{const raw=localStor
 function val(v){return v===null||v===undefined||v===''?'—':String(v)}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function numeric(v){if(v===null||v===undefined||v==='')return null;let n=Number(String(v).replace(',','.'));return Number.isFinite(n)?n:null}
-function options(id,key,label,split=false){const sel=$(id), old=sel.value;const raw=wines.flatMap(w=>{const v=w[key];if(v===null||v===undefined||v==='')return [];return split?String(v).split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean):[String(v).trim()]}).filter(Boolean);const unique=new Map();raw.forEach(v=>{const norm=v.toLocaleLowerCase('ru-RU').replace(/\s+/g,' ').trim();if(!unique.has(norm))unique.set(norm,v)});const values=[...unique.values()].sort((a,b)=>String(a).localeCompare(String(b),'ru',{sensitivity:'base'}));sel.innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');const match=values.find(v=>v.toLocaleLowerCase('ru-RU').replace(/\s+/g,' ').trim()===old.toLocaleLowerCase('ru-RU').replace(/\s+/g,' ').trim());sel.value=match||''}
+function normalizeGrape(s){return String(s||'').toLocaleLowerCase('ru-RU').replace(/[\u2010-\u2015\-–—_]+/g,' ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim()}
+function options(id,key,label,split=false){const sel=$(id), old=sel.value;const raw=wines.flatMap(w=>{const v=w[key];if(v===null||v===undefined||v==='')return [];return split?String(v).split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean):[String(v).trim()]}).filter(Boolean);const unique=new Map();raw.forEach(v=>{const norm=normalizeGrape(v);if(!norm)return;if(!unique.has(norm))unique.set(norm,v.trim().replace(/\s+/g,' '))});const values=[...unique.values()].sort((a,b)=>String(a).localeCompare(String(b),'ru',{sensitivity:'base'}));sel.innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');const match=values.find(v=>normalizeGrape(v)===normalizeGrape(old));sel.value=match||'';window._grapeSuggestions=values}
+function getGrapeSuggestions(q){const n=normalizeGrape(q);if(!n)return (window._grapeSuggestions||[]).slice(0,12);return (window._grapeSuggestions||[]).filter(v=>normalizeGrape(v).startsWith(n)||normalizeGrape(v).includes(n)).slice(0,12)}
 function getProfile(w){
- if(Array.isArray(w._profile)&&w._profile.length===PROFILE_AXES.length)return w._profile.map(v=>Math.max(0,Math.min(10,Number(v)||0)));
+ if(Array.isArray(w._profile)&&w._profile.length===PROFILE_AXES.length){
+  let p=w._profile.map(v=>Math.max(0,Math.min(10,Number(v)||0)));
+  // migrate once from pre-v42 axis order
+  if(!w._profileAxesV42){
+   const perm=[1,0,4,3,5,2];
+   p=perm.map(i=>p[i]??0);
+   w._profile=p;
+   w._profileAxesV42=1;
+  }
+  return p;
+ }
  const fromBook=PROFILE_DATA[w['Название']];
  return fromBook?fromBook.slice():[0,0,0,0,0,0];
 }
 function starCount(score){const n=numeric(score);if(n===null||n<0||n>100)return null;return Math.max(0,Math.min(5,n/16));}
-function ratingColor(v){return v<=20?'#54101d':v<=45?'#8d263b':v<=70?'#c52d45':v<=85?'#ed8298':'#c49a3a'}
-function glassSvg(v){const pct=Math.max(0,Math.min(100,Number(v)||0));const y=45-(pct/100)*41;const fillHeight=45-y;const color=ratingColor(pct);return `<svg class="rating-glass" viewBox="0 0 44 66" role="img" aria-label="Рейтинг ${pct} из 100"><defs><clipPath id="bowl-${Math.random().toString(36).slice(2)}"><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z"/></clipPath></defs><defs><clipPath id="glassBowl"><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z"/></clipPath></defs><g clip-path="url(#glassBowl)"><rect x="4" y="${y}" width="36" height="${fillHeight}" fill="${color}"/><path d="M5 ${y} Q14 ${y-1.5} 22 ${y} T39 ${y}" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="1.1"/></g><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z M22 45V59 M14 61H30" fill="none" stroke="#a99e8d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 9L12 25" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.4" stroke-linecap="round"/></svg>`}
+function ratingColor(v){const n=Number(v)||0;if(n<=0)return'#2a1605';if(n<=34)return'#5a3a14';if(n<=50)return'#8d263b';if(n<=70)return'#c52d45';if(n<=85)return'#ed8298';return'#c49a3a'}
+function glassSvg(v){const pct=Math.max(0,Math.min(100,Number(v)||0));const fillPct=pct===0?100:pct;const y=45-(fillPct/100)*41;const fillHeight=45-y;const color=ratingColor(pct);return `<svg class="rating-glass" viewBox="0 0 44 66" role="img" aria-label="Рейтинг ${pct} из 100"><defs><clipPath id="bowl-${Math.random().toString(36).slice(2)}"><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z"/></clipPath></defs><defs><clipPath id="glassBowl"><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z"/></clipPath></defs><g clip-path="url(#glassBowl)"><rect x="4" y="${y}" width="36" height="${fillHeight}" fill="${color}"/><path d="M5 ${y} Q14 ${y-1.5} 22 ${y} T39 ${y}" fill="none" stroke="#ffffff" stroke-opacity=".5" stroke-width="1.1"/></g><path d="M5 4H39L36 28Q34 45 22 45Q10 45 8 28Z M22 45V59 M14 61H30" fill="none" stroke="#a99e8d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 9L12 25" stroke="#ffffff" stroke-opacity=".55" stroke-width="1.4" stroke-linecap="round"/></svg>`}
 function ratingMarkup(score,detail=false){const n=numeric(score);if(n===null||n<0||n>100)return '';const pct=Math.round(n);return `<div class="rating ${detail?'rating-large':''}" title="Рейтинг ${pct} из 100"><span class="rating-glass-wrap" style="--rating-color:${ratingColor(pct)}">${glassSvg(pct)}</span><span class="rating-number">${pct}/100</span></div>`}
 function radarSvg(values){
  const labels=PROFILE_AXES, cx=170,cy=145,R=88; const pts=(scale)=>values.map((v,i)=>{const a=(-Math.PI/2)+i*2*Math.PI/labels.length,r=R*scale*(v/10);return `${(cx+Math.cos(a)*r).toFixed(1)},${(cy+Math.sin(a)*r).toFixed(1)}`}).join(' ');
@@ -2197,18 +2198,31 @@ async function fileToData(file){
 }
 function renderCompare(){const section=$('compareSection');const count=$('compareCount');if(count)count.textContent=compareSelected.size;document.querySelectorAll('[data-compare-index]').forEach(el=>el.checked=compareSelected.has(Number(el.dataset.compareIndex)));if(compareSelected.size<2){section.hidden=true;section.innerHTML='';return}const arr=[...compareSelected].slice(0,2).map(i=>wines[i]).filter(Boolean);if(arr.length<2){section.hidden=true;section.innerHTML='';return}section.hidden=false;section.innerHTML=`<div class="radar-head"><h3>Сравнение вин</h3><div class="compare-head-actions"><span class="sub">${arr.length} вина</span><button class="btn secondary compare-close" id="closeCompare" aria-label="Убрать сравнение" title="Убрать сравнение">×</button></div></div><div class="compare-grid">${arr.map(w=>`<div class="compare-wine">${w._image?`<img src="${w._image}" alt="${esc(w['Название'])}">`:''}<h3>${esc(w['Название'])}</h3><div class="sub">${esc(w['Страна']||'')} · ${esc(w['Регион']||'')}</div>${ratingMarkup(w['Рейтинг'],true)}<div>${radarSvg(getProfile(w))}</div><div class="compare-fields">${['Цвет','Сорт','Вкус','Винтаж','Алк%','Цена'].map(k=>`<div><b>${esc(k)}:</b> ${esc(val(w[k]))}${k==='Алк%'&&numeric(w[k])!==null?'%':''}${k==='Цена'&&numeric(w[k])!==null?' ₽':''}</div>`).join('')}<p>${esc(w._comment||'Авторский комментарий не добавлен.')}</p></div></div>`).join('')}</div>`;$('closeCompare').onclick=()=>{compareSelected.clear();$('compareSection').hidden=true;$('compareSection').innerHTML='';if($('compareCount'))$('compareCount').textContent='0';document.querySelectorAll('[data-compare-index]').forEach(el=>el.checked=false);document.body.classList.remove('compare-mode');$('compareBtn').textContent='Сравнить';$('compareBtn').setAttribute('aria-pressed','false');};}
 let currentPage=1;
-function render(){options('color','Цвет','Цвета');options('taste','Вкус','Любой вкус');options('country','Страна','Страны');options('variety','Сорт','Сорт',true);
+function render(){options('color','Цвет','Цвета');options('taste','Вкус','Любой');options('country','Страна','Страны');options('variety','Сорт','Любой',true);
 $('totalStat').textContent=wines.length;$('countryStat').textContent=new Set(wines.map(w=>String(w['Страна']||'').trim()).filter(Boolean)).size;
 const vialTypes=[['red','крас'],['white','бел'],['rose','роз']];const vialCounts={red:0,white:0,rose:0};wines.forEach(w=>{const c=String(w['Цвет']||'').toLowerCase();if(c.includes('крас'))vialCounts.red++;else if(c.includes('бел'))vialCounts.white++;else if(c.includes('роз'))vialCounts.rose++});const vialTotal=vialCounts.red+vialCounts.white+vialCounts.rose;document.querySelectorAll('[data-vial]').forEach(el=>{const type=el.dataset.vial;el.querySelector('.vial-count').textContent=vialCounts[type];el.querySelector('.vial-liquid').style.height=(vialTotal?Math.max(0,Math.min(100,vialCounts[type]/vialTotal*100)):0)+'%';el.setAttribute('title',`${type==='red'?'Красные':type==='white'?'Белые':'Розовые'} вина: ${vialCounts[type]}`)});
 const q=$('search').value.trim().toLowerCase(), color=$('color').value,taste=$('taste').value,country=$('country').value,variety=$('variety').value, pmin=$('priceMin').value===''?null:Number($('priceMin').value), pmax=$('priceMax').value===''?null:Number($('priceMax').value);
-let list=wines.map((w,i)=>({...w,_i:i})).filter(w=>{const hay=fields.map(k=>w[k]).filter(v=>v!==null&&v!==undefined).join(' ').toLowerCase();return (!q||hay.includes(q))&&(!color||String(w['Цвет'])===color)&&(!taste||String(w['Вкус'])===taste)&&(!country||String(w['Страна'])===country)&&(!variety||String(w['Сорт']||'').split(/[,;\n]+/).map(x=>x.trim().toLocaleLowerCase('ru-RU')).includes(variety.toLocaleLowerCase('ru-RU')))&&(pmin===null||numeric(w['Цена'])>=pmin)&&(pmax===null||numeric(w['Цена'])<=pmax)});
-const sort=$('sort').value;list.sort((a,b)=>{if(sort==='priceAsc')return (numeric(a['Цена'])??Infinity)-(numeric(b['Цена'])??Infinity);if(sort==='priceDesc')return (numeric(b['Цена'])??-Infinity)-(numeric(a['Цена'])??-Infinity);if(sort==='rating')return (numeric(b['Рейтинг'])??-Infinity)-(numeric(a['Рейтинг'])??-Infinity);if(sort==='year')return (numeric(b['Винтаж'])??-Infinity)-(numeric(a['Винтаж'])??-Infinity);return String(a['Название']).localeCompare(String(b['Название']),'ru')});
-const size=$('pageSize').value==='all'?Math.max(1,list.length):Number($('pageSize').value)||12;const pages=Math.max(1,Math.ceil(list.length/size));currentPage=Math.min(currentPage,pages);const shown=list.slice((currentPage-1)*size,currentPage*size);
-const active=[];if(q)active.push(['Поиск: '+q,'search']);if(country)active.push(['Страна: '+country,'country']);if(color)active.push(['Цвет: '+color,'color']);if(taste)active.push(['Сахар: '+taste,'taste']);if(variety)active.push(['Виноград: '+variety,'variety']);if(pmin!==null||pmax!==null)active.push([`Цена: ${pmin??0} — ${pmax??'10 000'} ₽`,'price']);$('activeFilters').innerHTML=active.map((a,i)=>`<span class="active-filter">${esc(a[0])}<button type="button" data-filter-remove="${i}" aria-label="Убрать фильтр">×</button></span>`).join('')+(active.length?'<button class="clear-filters" id="clearAllFilters">Сбросить все</button>':'');document.querySelectorAll('[data-filter-remove]').forEach(b=>b.onclick=()=>{const id=active[Number(b.dataset.filterRemove)][1];if(id==='price'){ $('priceMin').value='';$('priceMax').value='';syncPriceUI()}else $(id).value='';currentPage=1;render()});if($('clearAllFilters'))$('clearAllFilters').onclick=()=>{['search','country','color','taste','variety','priceMin','priceMax'].forEach(id=>$(id).value='');syncPriceUI();currentPage=1;render()};$('resultCount').textContent=`Найдено ${list.length} из ${wines.length}`;
+let list=wines.map((w,i)=>({...w,_i:i})).filter(w=>{const hay=fields.map(k=>w[k]).filter(v=>v!==null&&v!==undefined).join(' ').toLowerCase();return (!q||hay.includes(q))&&(!color||String(w['Цвет'])===color)&&(!taste||String(w['Вкус'])===taste)&&(!country||String(w['Страна'])===country)&&(!variety||String(w['Сорт']||'').split(/[,;\n]+/).map(x=>normalizeGrape(x)).includes(normalizeGrape(variety)))&&(pmin===null||numeric(w['Цена'])>=pmin)&&(pmax===null||numeric(w['Цена'])<=pmax)});
+const sort=$('sort').value;list.sort((a,b)=>{if(sort==='priceAsc')return (numeric(a['Цена'])??Infinity)-(numeric(b['Цена'])??Infinity);if(sort==='priceDesc')return (numeric(b['Цена'])??-Infinity)-(numeric(a['Цена'])??-Infinity);if(sort==='ratingBest')return (numeric(b['Рейтинг'])??-Infinity)-(numeric(a['Рейтинг'])??-Infinity);if(sort==='ratingWorst')return (numeric(a['Рейтинг'])??Infinity)-(numeric(b['Рейтинг'])??Infinity);if(sort==='yearNewer')return (numeric(b['Винтаж'])??-Infinity)-(numeric(a['Винтаж'])??-Infinity);if(sort==='yearOlder')return (numeric(a['Винтаж'])??Infinity)-(numeric(b['Винтаж'])??Infinity);return String(a['Название']).localeCompare(String(b['Название']),'ru')});
+window._lastListLen=list.length;const size=$('pageSize').value==='all'?Math.max(1,list.length):Number($('pageSize').value)||12;const pages=Math.max(1,Math.ceil(list.length/size));currentPage=Math.min(currentPage,pages);const shown=list.slice((currentPage-1)*size,currentPage*size);
+const active=[];if(q)active.push(['Поиск: '+q,'search']);if(country)active.push(['Страна: '+country,'country']);if(color)active.push(['Цвет: '+color,'color']);if(taste)active.push(['Вкус: '+taste,'taste']);if(variety)active.push(['Виноград: '+variety,'variety']);if(pmin!==null||pmax!==null)active.push([`Цена: ${pmin??0} — ${pmax??'10 000'} ₽`,'price']);$('activeFilters').innerHTML=active.map((a,i)=>`<span class="active-filter">${esc(a[0])}<button type="button" data-filter-remove="${i}" aria-label="Убрать фильтр">×</button></span>`).join('')+(active.length?'<button class="clear-filters" id="clearAllFilters">Сбросить все</button>':'');document.querySelectorAll('[data-filter-remove]').forEach(b=>b.onclick=()=>{const id=active[Number(b.dataset.filterRemove)][1];if(id==='price'){ $('priceMin').value='';$('priceMax').value='';syncPriceUI()}else $(id).value='';currentPage=1;render()});if($('clearAllFilters'))$('clearAllFilters').onclick=()=>{['search','country','color','taste','variety','priceMin','priceMax'].forEach(id=>$(id).value='');syncPriceUI();currentPage=1;render()};$('resultCount').textContent=`Найдено ${list.length} из ${wines.length}`;
 $('grid').innerHTML=shown.length?shown.map(w=>`<article class="card wine-card" data-i="${w._i}"><div class="card-photo-wrap">${w._image?`<img class="card-photo" src="${w._image}" alt="${esc(w['Название'])}">`:''}</div><div class="card-info"><div class="cardtop"><span class="tag ${colorClass(w['Цвет'])}">${esc(val(w['Цвет']))}</span><div style="display:flex;align-items:center;gap:10px">${ratingMarkup(w['Рейтинг'])}<label class="compare-picker" title="Выбрать для сравнения" onclick="event.stopPropagation()"><input type="checkbox" data-compare-index="${w._i}" ${compareSelected.has(w._i)?'checked':''}>Сравнить</label></div></div><h3>${esc(w['Название'])}</h3><div class="sub">${esc([w['Страна'],w['Регион']].filter(Boolean).join(' · ')||'Регион не указан')}</div><div class="meta">${grapeLinkMarkup(w)}<span class="pill">${esc(val(w['Вкус']))}</span>${w['Винтаж']?`<span class="pill">${esc(w['Винтаж'])}</span>`:''}</div><div class="cardbottom"><span class="sub">${w['Алк%']!==null&&w['Алк%']!==''?esc(w['Алк%'])+'% алк.':''}</span><span class="price">${numeric(w['Цена'])!==null?esc(numeric(w['Цена']).toLocaleString('ru-RU'))+' ₽':''}</span></div></div></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Ничего не найдено. Попробуйте изменить фильтры.</div>';
 document.querySelectorAll('.card').forEach(c=>{c.addEventListener('click',e=>{if(e.target.closest('[data-grape]')){e.stopPropagation();openWiki(e.target.closest('[data-grape]').dataset.grape);return}if(e.target.closest('.compare-picker'))return;showDetail(Number(c.dataset.i))})});
 document.querySelectorAll('[data-compare-index]').forEach(el=>el.addEventListener('change',()=>{const i=Number(el.dataset.compareIndex);if(el.checked){if(compareSelected.size>=2){el.checked=false;alert('Для сравнения можно выбрать только два вина. Сними выбор с одного из них или убери сравнение крестиком.');return}compareSelected.add(i)}else compareSelected.delete(i);renderCompare();if(compareSelected.size===2)$('compareSection').scrollIntoView({behavior:'smooth',block:'start'})}));
-$('pageInfo').textContent=list.length?`Страница ${currentPage} из ${pages}`:'Нет результатов';$('prevPage').disabled=currentPage<=1;$('nextPage').disabled=currentPage>=pages;$('prevPage').style.opacity=currentPage<=1?'.45':'1';$('nextPage').style.opacity=currentPage>=pages?'.45':'1';renderCompare();
+const pageTxt=list.length?`Страница ${currentPage} из ${pages}`:'Нет результатов';
+['pageInfo','pageInfoTop'].forEach(id=>{const el=$(id);if(el)el.textContent=pageTxt});
+['pageInput','pageInputTop'].forEach(id=>{const el=$(id);if(el){el.value=currentPage;el.max=pages;el.disabled=!list.length}});
+['prevPage','prevPageTop'].forEach(id=>{const el=$(id);if(el){el.disabled=currentPage<=1;el.style.opacity=currentPage<=1?'.45':'1'}});
+['nextPage','nextPageTop'].forEach(id=>{const el=$(id);if(el){el.disabled=currentPage>=pages;el.style.opacity=currentPage>=pages?'.45':'1'}});
+// mark active filter controls (sort is not a filter — never highlight)
+document.querySelectorAll('.filter-control').forEach(fc=>{
+  if(fc.classList.contains('sort-control')||fc.querySelector('#sort')){fc.classList.remove('is-active');return}
+  const sel=fc.querySelector('select.csel-native,select,input:not([type=range])');
+  const isPrice=fc.id==='priceFilter';
+  const active=isPrice?($('priceMin').value!==''||$('priceMax').value!==''):(sel&&sel.value);
+  fc.classList.toggle('is-active',!!active);
+});
+renderCompare();
 }
 let lightboxPhotos=[],lightboxIndex=0;function openPhotoLightbox(photos,index=0){lightboxPhotos=photos||[];if(!lightboxPhotos.length)return;lightboxIndex=(index+lightboxPhotos.length)%lightboxPhotos.length;const box=$('photoLightbox');box.hidden=false;document.body.style.overflow='hidden';paintLightbox()}function paintLightbox(){if(!lightboxPhotos.length)return;$('lightboxImage').src=lightboxPhotos[lightboxIndex];$('lightboxCount').textContent=`${lightboxIndex+1} / ${lightboxPhotos.length}`;$('lightboxPrev').style.display=lightboxPhotos.length>1?'grid':'none';$('lightboxNext').style.display=lightboxPhotos.length>1?'grid':'none'}function closePhotoLightbox(){ $('photoLightbox').hidden=true;$('lightboxImage').src='';document.body.style.overflow=''}$('lightboxClose').onclick=closePhotoLightbox;$('photoLightbox').onclick=e=>{if(e.target===$('photoLightbox'))closePhotoLightbox()};$('lightboxPrev').onclick=()=>{lightboxIndex=(lightboxIndex-1+lightboxPhotos.length)%lightboxPhotos.length;paintLightbox()};$('lightboxNext').onclick=()=>{lightboxIndex=(lightboxIndex+1)%lightboxPhotos.length;paintLightbox()};document.addEventListener('keydown',e=>{if($('photoLightbox')&&!$('photoLightbox').hidden){if(e.key==='Escape')closePhotoLightbox();if(e.key==='ArrowLeft')$('lightboxPrev').click();if(e.key==='ArrowRight')$('lightboxNext').click()}});
 function showDetail(i){const w=wines[i];if(!w)return;const details=fields.filter(k=>w[k]!==null&&w[k]!==undefined&&w[k]!=='').filter(k=>k!=='Рейтинг').map(k=>`<div class="field"><small>${esc(k)}</small><strong>${esc(k==='Алк%'?w[k]+'%':k==='Цена'?Number(w[k]).toLocaleString('ru-RU')+' ₽':w[k])}</strong></div>`).join('');const profile=getProfile(w);
@@ -2227,7 +2241,27 @@ $('priceMaxRange').addEventListener('input',()=>{let lo=Number($('priceMinRange'
 $('priceApply').onclick=()=>{$('priceFilter').classList.remove('open');clampPriceInputs();currentPage=1;render()};
 $('priceReset').onclick=()=>{$('priceMin').value='';$('priceMax').value='';syncPriceUI();currentPage=1;render()};
 document.addEventListener('click',e=>{if(!$('priceFilter').contains(e.target))$('priceFilter').classList.remove('open')});
-function openEditor(i=null){if(!adminSession){showLogin();return}editingIndex=i;$('editTitle').textContent=i===null?'Добавить вино':'Редактировать вино';const w=i===null?{}:wines[i];const countries=['Аргентина','Австралия','Австрия','Болгария','Германия','Греция','Грузия','Испания','Италия','Канада','Китай','Молдова','Новая Зеландия','Португалия','Россия','США','Сербия','Словения','Украина','Уругвай','Франция','Хорватия','Чили','Швейцария','ЮАР','Япония'];$('editorFields').innerHTML=fields.map(k=>{if(k==='Рейтинг'){const initial=Math.max(0,Math.min(100,Math.round(numeric(w[k])??0)));return `<div class="rating-editor-label"><label>Рейтинг вина</label><div class="rating-editor" id="ratingEditor"><input type="range" id="ratingValue" name="Рейтинг" min="0" max="100" step="1" value="${initial}"><span class="rating-hint" id="ratingHint">${initial}/100</span><span id="ratingPreview">${glassSvg(initial)}</span></div></div>`}if(k==='Цвет')return `<label>${esc(k)}<select name="Цвет"><option value="">Выбрать цвет</option>${['Красное','Белое','Розовое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase().includes(v.toLowerCase())?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Страна')return `<label>${esc(k)}<select name="Страна"><option value="">Выбрать страну</option>${[...new Set([...countries,w[k]].filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru')).map(v=>`<option value="${esc(v)}" ${w[k]===v?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`;if(k==='Вкус')return `<label>${esc(k)}<select name="Вкус"><option value="">Выбрать вкус</option>${['Сладкое','Полусладкое','Сухое','Полусухое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase()===v.toLowerCase()?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Винтаж'){let y=Number(w[k])||new Date().getFullYear();return `<label>${esc(k)}<select name="Винтаж"><option value="">Без винтажа</option>${Array.from({length:new Date().getFullYear()-1989},(_,j)=>new Date().getFullYear()-j).map(v=>`<option value="${v}" ${y===v?'selected':''}>${v}</option>`).join('')}</select></label>`}const type=['Алк%','Цена'].includes(k)?'number':'text';return `<label>${esc(k)}<input name="${esc(k)}" type="${type}" ${k==='Цена'?'min="0" step="any" placeholder="Цена в рублях"':''} ${k==='Алк%'?'min="0" max="100" step="any" placeholder="Например, 13,5"':''} value="${esc(w[k]??'')}" ${k==='Название'?'required':''}></label>`}).join('');setupRatingEditor(w);$('wineCommentInput').value=w._comment||'';$('wineImageFile').value='';renderPhotoManager(w);$('editBack').style.display='flex'}
+function openEditor(i=null){if(!adminSession){showLogin();return}editingIndex=i;$('editTitle').textContent=i===null?'Добавить вино':'Редактировать вино';const w=i===null?{}:wines[i];const countries=['Аргентина','Австралия','Австрия','Болгария','Германия','Греция','Грузия','Испания','Италия','Канада','Китай','Молдова','Новая Зеландия','Португалия','Россия','США','Сербия','Словения','Украина','Уругвай','Франция','Хорватия','Чили','Швейцария','ЮАР','Япония'];$('editorFields').innerHTML=fields.map(k=>{if(k==='Рейтинг'){const initial=Math.max(0,Math.min(100,Math.round(numeric(w[k])??0)));return `<div class="rating-editor-label"><label>Рейтинг вина</label><div class="rating-editor" id="ratingEditor"><input type="range" id="ratingValue" name="Рейтинг" min="0" max="100" step="1" value="${initial}"><span class="rating-hint" id="ratingHint">${initial}/100</span><span id="ratingPreview">${glassSvg(initial)}</span></div></div>`}if(k==='Цвет')return `<label>${esc(k)}<select name="Цвет"><option value="">Выбрать цвет</option>${['Красное','Белое','Розовое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase().includes(v.toLowerCase())?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Страна')return `<label>${esc(k)}<select name="Страна"><option value="">Выбрать страну</option>${[...new Set([...countries,w[k]].filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru')).map(v=>`<option value="${esc(v)}" ${w[k]===v?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`;if(k==='Вкус')return `<label>${esc(k)}<select name="Вкус"><option value="">Выбрать вкус</option>${['Сладкое','Полусладкое','Сухое','Полусухое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase()===v.toLowerCase()?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Винтаж'){let y=Number(w[k])||new Date().getFullYear();return `<label>${esc(k)}<select name="Винтаж"><option value="">Без винтажа</option>${Array.from({length:new Date().getFullYear()-1989},(_,j)=>new Date().getFullYear()-j).map(v=>`<option value="${v}" ${y===v?'selected':''}>${v}</option>`).join('')}</select></label>`}if(k==='Сорт'){const val=esc(w[k]??'');return `<label class="variety-editor-label">${esc(k)}<input name="Сорт" id="varietyInput" type="text" list="grapeDatalist" autocomplete="off" placeholder="Начните вводить сорт…" value="${val}"><datalist id="grapeDatalist"></datalist><div id="grapeSuggest" class="grape-suggest" hidden></div></label>`}
+const type=['Алк%','Цена'].includes(k)?'number':'text';return `<label>${esc(k)}<input name="${esc(k)}" type="${type}" ${k==='Цена'?'min="0" step="any" placeholder="Цена в рублях"':''} ${k==='Алк%'?'min="0" max="100" step="any" placeholder="Например, 13,5"':''} value="${esc(w[k]??'')}" ${k==='Название'?'required':''}></label>`}).join('');setupRatingEditor(w);setupVarietySuggest();$('wineCommentInput').value=w._comment||'';$('wineImageFile').value='';renderPhotoManager(w);$('editBack').style.display='flex'}
+function setupVarietySuggest(){
+  const input=$('varietyInput'), box=$('grapeSuggest'), dl=$('grapeDatalist');
+  if(!input)return;
+  // ensure suggestions list is fresh
+  options('variety','Сорт','Любой',true);
+  const paint=(q)=>{
+    const items=getGrapeSuggestions(q);
+    if(dl)dl.innerHTML=items.map(v=>`<option value="${esc(v)}">`).join('');
+    if(!box)return;
+    if(!q||!items.length){box.hidden=true;box.innerHTML='';return}
+    box.hidden=false;
+    box.innerHTML=items.map(v=>`<button type="button" class="grape-suggest-item" data-v="${esc(v)}">${esc(v)}</button>`).join('');
+    box.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{input.value=b.dataset.v;box.hidden=true});
+  };
+  input.addEventListener('input',()=>paint(input.value));
+  input.addEventListener('focus',()=>paint(input.value));
+  input.addEventListener('blur',()=>setTimeout(()=>{if(box)box.hidden=true},180));
+  paint(input.value);
+}
 function renderPhotoManager(w){const root=$('photoManager');if(!root)return;const photos=w._photos&&w._photos.length?w._photos:(w._image?[w._image]:[]);root.innerHTML=photos.map((src,i)=>`<div class="photo-item"><img src="${src}" alt="Фото ${i+1}"><label><input type="radio" name="mainPhoto" value="${i}" ${i===0?'checked':''}> Основное</label><button type="button" class="btn secondary" data-remove-photo="${i}">Удалить</button></div>`).join('')||'<span class="sub">Фотографии ещё не добавлены.</span>';root.querySelectorAll('[data-remove-photo]').forEach(b=>b.onclick=()=>{const arr=photos.slice();arr.splice(Number(b.dataset.removePhoto),1);w._photos=arr;w._image=arr[0]||'';renderPhotoManager(w)});root.querySelectorAll('[name="mainPhoto"]').forEach(r=>r.onchange=()=>{const arr=photos.slice();const n=Number(r.value);if(n>0){const [main]=arr.splice(n,1);arr.unshift(main)}w._photos=arr;w._image=arr[0]||'';renderPhotoManager(w)})}
 function askWineDelete(message){return new Promise(resolve=>{const back=document.createElement('div');back.className='confirm-backdrop';back.innerHTML=`<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmDeleteTitle"><h3 id="confirmDeleteTitle">Удалить вино?</h3><p>${esc(message)}</p><div class="confirm-actions"><button type="button" class="btn secondary" data-answer="no">Нет</button><button type="button" class="btn danger" data-answer="yes">Да, удалить</button></div></div>`;const finish=value=>{back.remove();resolve(value)};back.querySelector('[data-answer="no"]').onclick=()=>finish(false);back.querySelector('[data-answer="yes"]').onclick=()=>finish(true);back.addEventListener('click',e=>{if(e.target===back)finish(false)});back.addEventListener('keydown',e=>{if(e.key==='Escape')finish(false)});document.body.appendChild(back);back.querySelector('[data-answer="no"]').focus()})}
 $('adminBtn').onclick=()=>{if(!adminSession){showLogin();return}if(confirm('ОК — настройки сайта. Отмена — выйти из аккаунта администратора.'))openSettings();else{adminSession=null;localStorage.removeItem(SESSION_KEY);setAdminUI();setSyncStatus('Вышел из аккаунта. Каталог доступен только для просмотра.')}};
@@ -2282,33 +2316,1258 @@ $('resetSettings').onclick=()=>{if(confirm('Вернуть исходные те
 $('editForm').onsubmit=async e=>{e.preventDefault();const obj={};for(const k of fields){let v=new FormData(e.target).get(k);if(v===''||v===null)obj[k]=null;else if(['Винтаж','Алк%','Цена','Рейтинг'].includes(k))obj[k]=Number(v);else obj[k]=v}obj._comment=$('wineCommentInput').value.trim();const old=editingIndex===null?{}:wines[editingIndex];obj._profile=old._profile||[0,0,0,0,0,0];let photos=(old._photos&&old._photos.length?old._photos:(old._image?[old._image]:[])).slice();const files=Array.from($('wineImageFile').files||[]);try{for(const file of files){photos.push(await fileToData(file))}}catch(err){alert('Не удалось обработать одну из фотографий. Попробуй другой формат изображения.');return}const main=Number(document.querySelector('[name="mainPhoto"]:checked')?.value||0);if(main>0&&main<photos.length){const [first]=photos.splice(main,1);photos.unshift(first)}obj._photos=photos;obj._image=photos[0]||'';if(editingIndex===null)wines.push(obj);else wines[editingIndex]=obj;try{saveData();$('editBack').style.display='none'}catch(err){alert('Не удалось сохранить данные. Возможно, изображения слишком большие для локального хранилища. Уменьши размер фотографий.')}};
 $('cancelEdit').onclick=()=>$('editBack').style.display='none';$('detailBack').onclick=e=>{if(e.target===$('detailBack'))$('detailBack').style.display='none'};$('editBack').onclick=e=>{if(e.target===$('editBack'))e.stopPropagation()};$('settingsBack').onclick=e=>{if(e.target===$('settingsBack'))$('settingsBack').style.display='none'};
 ['search','color','taste','country','variety','sort'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{currentPage=1;render()}));
-$('addWineBtn').onclick=()=>openEditor();$('compareBtn').onclick=()=>{const active=!document.body.classList.contains('compare-mode');document.body.classList.toggle('compare-mode',active);$('compareBtn').setAttribute('aria-pressed',String(active));$('compareBtn').textContent=active?'Отменить сравнение':'Сравнить';if(!active){compareSelected.clear();$('compareSection').hidden=true;$('compareSection').innerHTML='';document.querySelectorAll('[data-compare-index]').forEach(el=>el.checked=false);if($('compareCount'))$('compareCount').textContent='0';}};$('prevPage').onclick=()=>{currentPage=Math.max(1,currentPage-1);render()};$('nextPage').onclick=()=>{currentPage++;render()};$('pageSize').onchange=()=>{currentPage=1;render()};applySettings();setTheme(localStorage.getItem('vinotheque_theme_v1')||'red');setAdminUI();syncPriceUI();render();loadCloudCatalog();
+$('addWineBtn').onclick=()=>openEditor();$('compareBtn').onclick=()=>{const active=!document.body.classList.contains('compare-mode');document.body.classList.toggle('compare-mode',active);$('compareBtn').setAttribute('aria-pressed',String(active));$('compareBtn').textContent=active?'Отменить сравнение':'Сравнить';if(!active){compareSelected.clear();$('compareSection').hidden=true;$('compareSection').innerHTML='';document.querySelectorAll('[data-compare-index]').forEach(el=>el.checked=false);if($('compareCount'))$('compareCount').textContent='0';}};function goPage(n){const size=$('pageSize').value==='all'?9999:Number($('pageSize').value)||12;const pages=Math.max(1,Math.ceil((window._lastListLen||1)/size));currentPage=Math.max(1,Math.min(pages,Number(n)||1));render()}
+$('prevPage').onclick=()=>{currentPage=Math.max(1,currentPage-1);render()};$('nextPage').onclick=()=>{currentPage++;render()};
+if($('prevPageTop'))$('prevPageTop').onclick=()=>{currentPage=Math.max(1,currentPage-1);render()};
+if($('nextPageTop'))$('nextPageTop').onclick=()=>{currentPage++;render()};
+['pageInput','pageInputTop'].forEach(id=>{const el=$(id);if(!el)return;el.addEventListener('change',()=>goPage(el.value));el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();goPage(el.value)}})});
+$('pageSize').onchange=()=>{currentPage=1;render();try{$('pageSize').blur()}catch(e){}};
+
+function enhanceFilterSelects(){
+  const ids=['country','color','taste','variety','sort'];
+  ids.forEach(id=>{
+    const sel=$(id);
+    if(!sel || sel.dataset.csel==='1')return;
+    sel.dataset.csel='1';
+    sel.classList.add('csel-native');
+    const label=sel.closest('.filter-control')||sel.parentNode;
+    const wrap=document.createElement('div');
+    wrap.className='csel';
+    wrap.dataset.for=id;
+    const trigger=document.createElement('button');
+    trigger.type='button';
+    trigger.className='csel-trigger';
+    const panel=document.createElement('div');
+    panel.className='csel-panel';
+    panel.setAttribute('role','listbox');
+    document.body.appendChild(panel);
+    sel.parentNode.insertBefore(wrap, sel);
+    wrap.appendChild(trigger);
+    wrap.appendChild(sel);
+
+    const closePanel=()=>{panel.classList.remove('open');wrap.classList.remove('open')};
+    const positionPanel=()=>{
+      const r=trigger.getBoundingClientRect();
+      const width=Math.max(r.width, 160);
+      let left=r.left;
+      if(left+width > window.innerWidth-8) left=Math.max(8, window.innerWidth-width-8);
+      let top=r.bottom+6;
+      panel.style.width=width+'px';
+      panel.style.left=left+'px';
+      panel.style.top=top+'px';
+      // if not enough space below, open upward
+      requestAnimationFrame(()=>{
+        const ph=panel.getBoundingClientRect().height||200;
+        if(top+ph > window.innerHeight-8 && r.top > ph+8){
+          panel.style.top=(r.top-ph-6)+'px';
+        }
+      });
+    };
+    const paint=()=>{
+      const opts=[...sel.options];
+      const cur=opts.find(o=>o.value===sel.value)||opts[0];
+      trigger.textContent=cur?cur.textContent:'';
+      panel.innerHTML=opts.map(o=>{
+        const val=String(o.value).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+        const txt=o.textContent.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+        return `<button type="button" class="csel-option${o.value===sel.value?' is-selected':''}" role="option" data-value="${val}">${txt}</button>`;
+      }).join('');
+      panel.querySelectorAll('.csel-option').forEach(btn=>{
+        btn.addEventListener('click',e=>{
+          e.preventDefault();e.stopPropagation();
+          sel.value=btn.dataset.value;
+          sel.dispatchEvent(new Event('change',{bubbles:true}));
+          closePanel();
+          paint();
+        });
+        let energy=0, lastY=null, lastT=0, timer=null;
+        btn.addEventListener('pointerenter',e=>{
+          const now=performance.now();
+          const y=e.clientY;
+          if(lastY!==null){
+            const dy=Math.abs(y-lastY);
+            const dt=Math.max(8, now-lastT);
+            energy=Math.min(6, energy*0.4 + dy/dt*8);
+          }
+          lastY=y; lastT=now;
+          const wx=(Math.min(3.5, 1+energy*0.35)*(Math.random()>.5?1:-1)).toFixed(2)+'px';
+          btn.style.setProperty('--wx', wx);
+          btn.classList.remove('wiggle');
+          void btn.offsetWidth;
+          btn.classList.add('wiggle');
+          clearTimeout(timer);
+          timer=setTimeout(()=>{btn.classList.remove('wiggle');energy*=0.2}, 1050);
+        });
+        btn.addEventListener('pointerleave',()=>{lastY=null});
+      });
+    };
+    trigger.addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();
+      const willOpen=!panel.classList.contains('open');
+      document.querySelectorAll('.csel-panel.open').forEach(p=>p.classList.remove('open'));
+      document.querySelectorAll('.csel.open').forEach(w=>w.classList.remove('open'));
+      if(willOpen){
+        paint();
+        positionPanel();
+        panel.classList.add('open');
+        wrap.classList.add('open');
+      }
+    });
+    const mo=new MutationObserver(()=>{paint(); if(panel.classList.contains('open')) positionPanel()});
+    mo.observe(sel,{childList:true,subtree:true,attributes:true});
+    paint();
+  });
+  document.addEventListener('mousedown',e=>{
+    if(e.target.closest('.csel-panel')||e.target.closest('.csel-trigger'))return;
+    // ignore clicks on scrollbar of open panel (target can be body/html)
+    const openPanel=document.querySelector('.csel-panel.open');
+    if(openPanel){
+      const r=openPanel.getBoundingClientRect();
+      if(e.clientX>=r.left && e.clientX<=r.right+18 && e.clientY>=r.top && e.clientY<=r.bottom)return;
+    }
+    document.querySelectorAll('.csel-panel.open').forEach(p=>p.classList.remove('open'));
+    document.querySelectorAll('.csel.open').forEach(w=>w.classList.remove('open'));
+  });
+  window.addEventListener('resize',()=>{
+    document.querySelectorAll('.csel-panel.open').forEach(p=>p.classList.remove('open'));
+    document.querySelectorAll('.csel.open').forEach(w=>w.classList.remove('open'));
+  });
+  // close only on page scroll, not when scrolling inside the panel
+  window.addEventListener('scroll',e=>{
+    const openPanel=document.querySelector('.csel-panel.open');
+    if(openPanel && (openPanel===e.target || openPanel.contains(e.target)))return;
+    if(openPanel && e.target!==document && e.target!==document.documentElement && e.target!==document.body){
+      // scroll inside some element — if it's the panel, keep open
+      if(openPanel.contains(e.target))return;
+    }
+    // actual window/document scroll
+    if(e.target===document || e.target===document.documentElement || e.target===document.body || e.target===window){
+      document.querySelectorAll('.csel-panel.open').forEach(p=>p.classList.remove('open'));
+      document.querySelectorAll('.csel.open').forEach(w=>w.classList.remove('open'));
+    }
+  }, true);
+  // allow wheel scroll inside panel without closing
+  document.addEventListener('wheel',e=>{
+    const openPanel=document.querySelector('.csel-panel.open');
+    if(!openPanel)return;
+    if(openPanel.contains(e.target) || openPanel===e.target){
+      // let native scroll work; stop from bubbling to window handlers if any
+      e.stopPropagation();
+      return;
+    }
+    // wheel outside → close
+    openPanel.classList.remove('open');
+    document.querySelectorAll('.csel.open').forEach(w=>w.classList.remove('open'));
+  }, {capture:true, passive:true});
+}
+enhanceFilterSelects();
+
+
+applySettings();setTheme(localStorage.getItem('vinotheque_theme_v1')||'red');setAdminUI();syncPriceUI();render();loadCloudCatalog();
 </script>
 
 <style id="v25-liquid-fix">.bottle-stage .vial-liquid:before,.bottle-stage .vial-liquid:after{content:none!important;display:none!important;animation:none!important;transform:none!important}.bottle-stage .vial-liquid{transform:none!important}.bottle-stage .liquid-svg{position:absolute;inset:0;width:100%;height:100%;overflow:hidden}</style>
 </body>
-</html>
 
-<style id="v23-layout-fixes">
-/* V23: bottles centered in the band between header rule and filters */
-.bottle-stage{position:absolute!important;left:50%!important;top:112px!important;transform:translateX(-50%)!important;width:min(100%,1200px)!important;height:180px!important;margin:0!important;z-index:4!important;pointer-events:none!important;overflow:visible!important}
-.bottle-stage .wine-vials{pointer-events:none!important;gap:32px!important;align-items:center!important}
-.bottle-stage .vial-stat{pointer-events:auto!important;gap:0!important}
-.bottle-stage .vial{width:108px!important;height:176px!important}
+<style id="v34-user-fixes">
+/* --- Smaller cards like v28 --- */
+.wine-card{
+  grid-template-columns:minmax(78px,30%) minmax(0,1fr)!important;
+  gap:11px!important;
+  padding:10px 12px!important;
+  min-height:0!important;
+  border-radius:12px!important;
+}
+.card-photo-wrap{align-items:center!important}
+.card-photo{
+  max-height:148px!important;
+  aspect-ratio:3/4!important;
+  padding:4px!important;
+  margin:0!important;
+  object-fit:contain!important;
+  border-radius:6px!important;
+}
+.card-info h3{font-size:17px!important;margin:4px 0 2px!important;line-height:1.2!important}
+.card-info .sub{font-size:12px!important}
+.card-info .meta{margin-top:4px!important;gap:5px!important}
+.card-info .pill,.card-info .wiki-link{font-size:10px!important;padding:3px 6px!important}
+.card-info .cardbottom{padding-top:6px!important}
+.card-info .price{font-size:17px!important}
+.rating-glass-wrap{width:26px!important;height:38px!important;flex-basis:26px!important}
+.rating-glass{width:26px!important;height:38px!important}
+.rating-number{font-size:11px!important}
+.tag{font-size:10px!important;padding:3px 7px!important}
+@media(max-width:760px){
+  .wine-card{grid-template-columns:minmax(72px,34%) minmax(0,1fr)!important;padding:9px!important;gap:9px!important}
+  .card-photo{max-height:130px!important}
+}
+@media(max-width:460px){
+  .wine-card{grid-template-columns:68px minmax(0,1fr)!important}
+  .card-photo{max-height:110px!important}
+  .card-info h3{font-size:15px!important}
+}
+
+/* --- Narrow vials (бутыли) + count only on hover --- */
+.bottle-stage .vial{
+  width:40px!important;
+  height:96px!important;
+  clip-path:polygon(40% 0,60% 0,60% 16%,64% 20%,64% 24%,72% 28%,82% 34%,90% 42%,94% 50%,94% 94%,90% 100%,10% 100%,6% 94%,6% 50%,10% 42%,18% 34%,28% 28%,36% 24%,36% 20%,40% 16%)!important;
+}
+.bottle-stage .vial-liquid{left:3px!important;right:3px!important;bottom:3px!important}
+.bottle-stage .vial-count{
+  display:flex!important;
+  opacity:0!important;
+  transition:opacity .18s ease!important;
+  font-size:13px!important;
+  pointer-events:none;
+}
+.bottle-stage .vial-stat:hover .vial-count,
+.bottle-stage .vial-stat:focus-visible .vial-count{
+  opacity:1!important;
+}
 .bottle-stage .vial-label{display:none!important}
-.theme-picker{position:relative!important;padding-bottom:0!important;margin-bottom:0!important}
-.theme-picker:after{content:""!important;position:absolute!important;left:-16px!important;right:-16px!important;top:100%!important;height:30px!important}
-.theme-picker .theme-switch,.theme-picker .theme-switch:not([hidden]){top:calc(100% + 2px)!important;right:-12px!important;min-width:196px!important;padding:12px!important;gap:12px!important;background:var(--panel)!important;border:1px solid var(--line)!important;border-radius:16px!important;box-shadow:0 14px 38px rgba(0,0,0,.48)!important;z-index:20000!important}
-.theme-switch[hidden]{display:none!important}
-.theme-btn{width:52px!important;height:54px!important;flex-basis:52px!important}
-/* Liquid surface: inertia-driven tilt and traveling waves */
-.bottle-stage .vial{overflow:hidden!important}
-.bottle-stage .vial-liquid{transform:none!important;transform-origin:initial!important;transition:height .65s cubic-bezier(.22,.8,.25,1)!important;will-change:height}
-.bottle-stage .vial-liquid:before{left:-18%!important;top:-9px!important;width:136%!important;height:20px!important;border-radius:48% 52% 38% 62% / 58% 42% 55% 45%!important;background:linear-gradient(180deg,rgba(255,255,255,.58),rgba(255,255,255,.22) 42%,rgba(255,255,255,0))!important;animation:liquidSurfaceA 1.9s ease-in-out infinite alternate!important;transform:translateX(var(--wave-x,0px)) rotate(var(--surface-tilt,0deg))!important;box-shadow:0 -2px 5px rgba(255,255,255,.16)!important}
-.bottle-stage .vial-liquid:after{left:-22%!important;top:-5px!important;width:144%!important;height:13px!important;border-radius:54% 46% 61% 39% / 45% 58% 42% 55%!important;background:rgba(255,255,255,.18)!important;animation:liquidSurfaceB 2.5s ease-in-out infinite alternate!important;transform:translateX(calc(var(--wave-x,0px)*-.55)) rotate(calc(var(--surface-tilt,0deg)*-.65))!important}
-@keyframes liquidSurfaceA{0%{margin-left:-4px;border-radius:48% 52% 38% 62% / 58% 42% 55% 45%}50%{border-radius:58% 42% 60% 40% / 42% 58% 45% 55%}100%{margin-left:4px;border-radius:38% 62% 46% 54% / 52% 48% 60% 40%}}
-@keyframes liquidSurfaceB{0%{margin-left:5px;opacity:.13}100%{margin-left:-5px;opacity:.26}}
-@media(max-width:760px){.bottle-stage{top:118px!important;height:145px!important}.bottle-stage .vial{width:70px!important;height:120px!important}.bottle-stage .wine-vials{gap:16px!important}}
-@media(max-width:480px){.bottle-stage{top:118px!important;height:125px!important}.bottle-stage .vial{width:52px!important;height:94px!important}.bottle-stage .wine-vials{gap:10px!important}}
+.bottle-stage .wine-vials{gap:18px!important}
+@media(max-width:760px){
+  .bottle-stage .vial{width:34px!important;height:80px!important}
+  .bottle-stage .wine-vials{gap:14px!important}
+  .bottle-stage .vial-count{font-size:11px!important}
+}
+@media(max-width:480px){
+  .bottle-stage .vial{width:28px!important;height:68px!important}
+}
+
+/* --- Filters: no blinding white, hover animation, active state --- */
+.filter-control select,
+.filter-control>input,
+.filter-control .price-trigger{
+  transition:border-color .2s ease,color .2s ease,box-shadow .2s ease,background .2s ease!important;
+  background:transparent!important;
+  color:var(--text)!important;
+  color-scheme:dark;
+}
+body[data-theme="white"] .filter-control select,
+body[data-theme="white"] .filter-control>input,
+body[data-theme="white"] .filter-control .price-trigger,
+body[data-theme="rose"] .filter-control select,
+body[data-theme="rose"] .filter-control>input,
+body[data-theme="rose"] .filter-control .price-trigger{
+  color-scheme:light;
+}
+.filter-control select:hover,
+.filter-control>input:hover,
+.filter-control .price-trigger:hover{
+  border-bottom-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+.filter-control select:focus,
+.filter-control>input:focus,
+.filter-control .price-trigger:focus{
+  outline:none!important;
+  border-bottom-color:var(--gold)!important;
+  box-shadow:0 1px 0 0 var(--gold)!important;
+  background:color-mix(in srgb,var(--panel2) 55%,transparent)!important;
+  color:var(--text)!important;
+}
+/* when a filter has a value — visual active indicator on the control */
+.filter-control.is-active>span{color:var(--gold)!important}
+.filter-control.is-active select,
+.filter-control.is-active>input,
+.filter-control.is-active .price-trigger{
+  border-bottom-color:var(--gold)!important;
+  border-bottom-width:2px!important;
+  color:var(--gold)!important;
+  font-weight:600;
+}
+.filter-control.is-active .price-trigger{font-weight:600}
+/* option list as dark as possible */
+.filter-control select option{
+  background:var(--panel);
+  color:var(--text);
+}
+
+/* Active filter chips stay visible and clearer */
+.active-filters{min-height:28px;margin:4px 0 12px}
+.active-filter{
+  background:color-mix(in srgb,var(--wine) 18%,var(--panel))!important;
+  border-color:color-mix(in srgb,var(--gold) 70%,var(--line))!important;
+  color:var(--text)!important;
+  box-shadow:0 0 0 1px color-mix(in srgb,var(--gold) 25%,transparent);
+}
+.active-filter button{color:var(--gold)!important}
+
+/* Pagination top + page input */
+.pagination,.pagination-top{
+  display:flex;
+  justify-content:center;
+  margin:14px 0 8px;
+}
+.pagination-top{margin:4px 0 14px}
+.page-buttons{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.page-jump label{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  color:var(--muted);
+  font-size:13px;
+}
+.page-jump input[type=number]{
+  width:56px;
+  min-height:34px!important;
+  padding:6px 8px!important;
+  text-align:center;
+  background:var(--panel)!important;
+  color:var(--text)!important;
+  border:1px solid var(--line)!important;
+  border-radius:6px!important;
+  -moz-appearance:textfield;
+}
+.page-jump input[type=number]::-webkit-outer-spin-button,
+.page-jump input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+/* Grape T9 suggestions in editor */
+.variety-editor-label{position:relative}
+.grape-suggest{
+  position:absolute;
+  left:0;right:0;top:calc(100% + 4px);
+  z-index:50;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:8px;
+  box-shadow:0 12px 28px #0005;
+  max-height:180px;
+  overflow:auto;
+  padding:4px;
+}
+.grape-suggest-item{
+  display:block;
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  padding:8px 10px;
+  border-radius:6px;
+  font:inherit;
+  cursor:pointer;
+}
+.grape-suggest-item:hover{
+  background:color-mix(in srgb,var(--wine) 16%,transparent);
+  color:var(--gold);
+}
+
+/* quantity control a bit tighter */
+.quantity-control{font-size:12px!important;gap:6px!important}
+.quantity-control select{
+  min-width:64px!important;
+  width:auto!important;
+  max-width:80px!important;
+  padding:6px 8px!important;
+}
 </style>
 
+
+
+
+
+
+
+
+<style id="v37-layout">
+/* Light theme grain */
+body[data-theme="white"]{
+  background-image:
+    radial-gradient(ellipse at 18% 8%,color-mix(in srgb,var(--wine) 6%,transparent),transparent 52%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)' opacity='.22'/%3E%3C/svg%3E")!important;
+  background-color:var(--bg)!important;background-repeat:repeat!important;background-attachment:fixed!important;
+}
+body[data-theme="rose"]{
+  background-image:
+    radial-gradient(ellipse at 18% 8%,color-mix(in srgb,var(--wine) 7%,transparent),transparent 52%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='grainr'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.7' numOctaves='3' seed='19' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grainr)' opacity='.2'/%3E%3C/svg%3E")!important;
+  background-color:var(--bg)!important;background-repeat:repeat!important;background-attachment:fixed!important;
+}
+
+/* Compact header: VINOCARD center */
+header{
+  display:grid!important;
+  grid-template-columns:1fr auto 1fr!important;
+  align-items:center!important;
+  min-height:64px!important;
+  padding:12px 0!important;
+  position:relative!important;
+}
+header .header-spacer{justify-self:start}
+header .header-logo{
+  grid-column:2;
+  justify-self:center;
+  font:clamp(22px,2.6vw,30px)/1 Georgia,serif;
+  letter-spacing:.28em;
+  color:var(--gold);
+  font-weight:400;
+  text-transform:uppercase;
+  user-select:none;
+}
+header .header-actions{
+  grid-column:3;
+  justify-self:end;
+  margin-left:0!important;
+  z-index:5;
+}
+header .brand-block{display:none!important}
+
+/* Hero: stats left, bottles centered in the green zone */
+.hero{
+  padding:18px 0 8px!important;
+  display:block!important;
+}
+.hero > div{
+  display:grid!important;
+  grid-template-columns:1fr auto 1fr!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:0!important;
+}
+.hero .stats{
+  grid-column:1;
+  justify-self:start;
+  display:flex!important;
+  gap:28px!important;
+  margin:0!important;
+  align-items:flex-end!important;
+}
+.hero .bottle-stage{
+  grid-column:2;
+  justify-self:center;
+  position:relative!important;
+  left:auto!important;top:auto!important;transform:none!important;
+  width:auto!important;height:auto!important;margin:0!important;
+  display:flex!important;align-items:flex-end!important;
+  pointer-events:auto!important;z-index:2!important;
+}
+.hero .bottle-stage .wine-vials{
+  position:relative!important;left:auto!important;top:auto!important;transform:none!important;
+  display:flex!important;align-items:flex-end!important;gap:26px!important;margin:0!important;
+  pointer-events:auto!important;
+}
+.hero .bottle-stage .vial-stat{pointer-events:auto!important;gap:0!important;transition:transform .25s ease}
+.hero .bottle-stage .vial-stat:hover{transform:translateY(-4px) scale(1.04)}
+.hero .bottle-stage .vial{
+  width:92px!important;height:176px!important;
+  clip-path:polygon(40% 0,60% 0,60% 16%,64% 20%,64% 24%,72% 28%,82% 34%,90% 42%,94% 50%,94% 94%,90% 100%,10% 100%,6% 94%,6% 50%,10% 42%,18% 34%,28% 28%,36% 24%,36% 20%,40% 16%)!important;
+}
+.hero .bottle-stage .vial-liquid{left:5px!important;right:5px!important;bottom:5px!important}
+.hero .bottle-stage .vial-count{
+  display:flex!important;opacity:0!important;transition:opacity .18s ease!important;font-size:20px!important;
+}
+.hero .bottle-stage .vial-stat:hover .vial-count,
+.hero .bottle-stage .vial-stat:focus-visible .vial-count{opacity:1!important}
+.hero .bottle-stage .vial-label{display:none!important}
+
+.section-head{margin-top:10px!important;margin-bottom:6px!important}
+
+/* Filters: even single row, no gap before sort */
+.redesign-toolbar{
+  display:flex!important;
+  flex-wrap:nowrap!important;
+  align-items:flex-end!important;
+  justify-content:flex-start!important;
+  gap:10px 12px!important;
+  margin:8px 0 6px!important;
+  overflow:visible!important;
+  padding-bottom:4px!important;
+  width:100%!important;
+}
+.filter-control{
+  flex:1 1 0!important;
+  min-width:88px!important;
+  max-width:none!important;
+}
+.filter-control>span{font-size:13px!important;margin-bottom:1px!important;white-space:nowrap}
+.filter-control select,
+.filter-control>input,
+.filter-control .price-trigger{
+  font-size:15px!important;
+  min-height:38px!important;
+  min-width:0!important;
+  width:100%!important;
+  padding:6px 18px 6px 0!important;
+}
+.search-control{
+  flex:1.15 1 0!important;
+  min-width:120px!important;
+  max-width:none!important;
+}
+.search-control input{
+  min-width:0!important;
+  width:100%!important;
+}
+.sort-control{
+  margin-left:0!important;
+  flex:1.1 1 0!important;
+  min-width:120px!important;
+  max-width:none!important;
+}
+.quantity-control{
+  flex:0 0 auto!important;
+  font-size:12px!important;
+  white-space:nowrap;
+  margin:0!important;
+  align-self:flex-end!important;
+  padding-bottom:2px!important;
+}
+.quantity-control select{
+  min-width:58px!important;
+  max-width:72px!important;
+  width:auto!important;
+  min-height:34px!important;
+  font-size:13px!important;
+  padding:5px 6px!important;
+}
+.price-filter{min-width:96px!important}
+
+/* Catalog bar: compare + pagination same line, no big gap */
+.catalog-bar{
+  display:flex!important;
+  align-items:center!important;
+  gap:14px!important;
+  margin:6px 0 10px!important;
+  min-height:0!important;
+  flex-wrap:wrap!important;
+}
+.catalog-bar .pagination-top{
+  margin:0!important;
+  margin-left:auto!important;
+  flex:1 1 auto;
+  display:flex!important;
+  justify-content:center!important;
+}
+.catalog-bar #compareBtn{flex:0 0 auto}
+.catalog-bar #addWineBtn{flex:0 0 auto}
+.profile-actions{display:none!important}
+.active-filters{margin:4px 0 6px!important;min-height:0}
+
+/* Cards: sharper detailed shadow (not mushy blur) */
+.wine-card{
+  grid-template-columns:minmax(96px,34%) minmax(0,1fr)!important;
+  gap:14px!important;
+  padding:10px 12px 10px 10px!important;
+  border-radius:14px!important;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 4%, transparent),
+    0 2px 4px color-mix(in srgb, #000 28%, transparent),
+    0 8px 16px color-mix(in srgb, #000 22%, transparent)!important;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .22s ease!important;
+}
+.wine-card:hover{
+  transform:translateY(-5px) scale(1.015)!important;
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 6%, transparent),
+    0 4px 8px color-mix(in srgb, #000 30%, transparent),
+    0 14px 28px color-mix(in srgb, var(--wine) 28%, transparent),
+    0 22px 40px color-mix(in srgb, #000 25%, transparent)!important;
+}
+body[data-theme="white"] .wine-card{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb, #3a3220 14%, transparent),
+    0 8px 16px color-mix(in srgb, #3a3220 12%, transparent)!important;
+}
+body[data-theme="white"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 4px 8px color-mix(in srgb, #3a3220 16%, transparent),
+    0 14px 28px color-mix(in srgb, var(--wine) 20%, transparent),
+    0 20px 36px color-mix(in srgb, #3a3220 14%, transparent)!important;
+}
+body[data-theme="rose"] .wine-card{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb, #4a2030 14%, transparent),
+    0 8px 16px color-mix(in srgb, #4a2030 12%, transparent)!important;
+}
+body[data-theme="rose"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 4px 8px color-mix(in srgb, #4a2030 16%, transparent),
+    0 14px 28px color-mix(in srgb, var(--wine) 22%, transparent),
+    0 20px 36px color-mix(in srgb, #4a2030 14%, transparent)!important;
+}
+
+/* Card type sizes kept readable */
+.card-photo{min-height:175px!important;height:100%!important;object-fit:contain!important;padding:2px!important;margin:0!important}
+.card-info h3{font-size:20px!important;line-height:1.2!important;margin:2px 0 0!important}
+.card-info .sub{font-size:13.5px!important}
+.card-info .wiki-link{font-size:13px!important;padding:5px 10px!important}
+.card-info .pill{font-size:12.5px!important;padding:5px 9px!important}
+.card-info .price{font-size:20px!important}
+.tag{font-size:11.5px!important;padding:5px 9px!important}
+
+.rating .rating-number{
+  opacity:0!important;max-width:0!important;overflow:hidden!important;margin:0!important;
+  transition:opacity .18s ease,max-width .18s ease!important;font-size:13px!important;white-space:nowrap;
+}
+.rating:hover .rating-number,.rating:focus-within .rating-number{opacity:1!important;max-width:80px!important;margin-left:5px!important}
+.rating-large .rating-number,.modal .rating .rating-number{opacity:1!important;max-width:none!important;margin-left:6px!important}
+
+@media(max-width:960px){
+  .redesign-toolbar{flex-wrap:wrap!important;gap:10px!important}
+  .filter-control{flex:1 1 calc(33% - 10px)!important;min-width:110px!important}
+  .search-control{flex:1 1 160px!important}
+  .sort-control{margin-left:0!important;flex:1 1 140px!important}
+}
+@media(max-width:760px){
+  .hero > div{grid-template-columns:1fr!important;justify-items:center}
+  .hero .stats{grid-column:1;justify-self:center}
+  .hero .bottle-stage{grid-column:1}
+  .hero .bottle-stage .vial{width:70px!important;height:134px!important}
+  .hero .bottle-stage .wine-vials{gap:18px!important}
+  header{min-height:56px!important}
+  header .header-logo{letter-spacing:.2em;font-size:20px!important}
+}
+</style>
+
+
+
+
+
+<style id="v39-fixes">
+/* Photos: tall equal frame, almost full card height */
+.wine-card{
+  padding:4px 12px 4px 4px!important;
+  align-items:stretch!important;
+  overflow:hidden!important;
+  grid-template-columns:minmax(120px,38%) minmax(0,1fr)!important;
+  transition:transform .28s ease, box-shadow .28s ease, border-color .22s ease!important;
+}
+.wine-card:hover{
+  transform:translateY(-5px)!important;
+}
+.card-photo-wrap{
+  width:100%!important;
+  height:auto!important;
+  min-height:260px!important;
+  max-height:none!important;
+  display:flex!important;
+  align-items:stretch!important;
+  justify-content:center!important;
+  align-self:stretch!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border-radius:10px!important;
+  background:color-mix(in srgb,var(--panel2) 35%,transparent)!important;
+}
+.card-photo{
+  width:100%!important;
+  height:100%!important;
+  min-height:260px!important;
+  max-height:none!important;
+  aspect-ratio:unset!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  padding:2px!important;
+  margin:0!important;
+  border-radius:8px!important;
+  background:transparent!important;
+  display:block!important;
+  image-rendering:auto;
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+}
+.card-info{
+  min-height:260px!important;
+  padding:6px 0!important;
+}
+@media(max-width:760px){
+  .wine-card{grid-template-columns:minmax(100px,36%) minmax(0,1fr)!important}
+  .card-photo-wrap,.card-photo{min-height:220px!important}
+  .card-info{min-height:220px!important}
+}
+@media(max-width:460px){
+  .card-photo-wrap,.card-photo{min-height:190px!important}
+  .card-info{min-height:190px!important}
+}
+
+/* Kill hover blur on text / links */
+.wine-card, .wine-card *{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+.wine-card:hover,
+.wine-card:hover h3,
+.wine-card:hover .sub,
+.wine-card:hover .pill,
+.wine-card:hover .wiki-link,
+.wine-card:hover .price,
+.wine-card:hover .tag{
+  filter:none!important;
+  transform:none;
+}
+.wine-card:hover{transform:translateY(-5px)!important}
+.wiki-link{
+  transition:background .15s ease, color .15s ease, border-color .15s ease!important;
+  transform:none!important;
+  filter:none!important;
+}
+.wiki-link:hover{
+  transform:none!important;
+  filter:none!important;
+  background:color-mix(in srgb,var(--wine) 18%,var(--panel2))!important;
+  color:var(--gold)!important;
+}
+.card-photo:hover{transform:none!important;filter:none!important}
+
+/* Custom select panel */
+.csel{
+  position:relative;
+  flex:1 1 0;
+  min-width:88px;
+}
+.csel-trigger{
+  width:100%;
+  text-align:left;
+  background:transparent!important;
+  border:0!important;
+  border-bottom:1px solid var(--line)!important;
+  border-radius:0!important;
+  color:var(--text)!important;
+  font-size:15px!important;
+  min-height:38px!important;
+  padding:6px 22px 6px 0!important;
+  cursor:pointer;
+  position:relative;
+}
+.csel-trigger:after{
+  content:"";
+  position:absolute;
+  right:4px;top:50%;
+  width:0;height:0;
+  border-left:5px solid transparent;
+  border-right:5px solid transparent;
+  border-top:6px solid var(--muted);
+  transform:translateY(-40%);
+  opacity:.7;
+}
+.csel.open .csel-trigger{
+  border-bottom-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+.csel{overflow:visible!important;z-index:5}
+.csel-panel{
+  position:fixed;
+  z-index:99999;
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:
+    0 1px 0 color-mix(in srgb,#fff 5%,transparent),
+    0 12px 32px color-mix(in srgb,#000 50%,transparent);
+  max-height:min(280px,50vh);
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  padding:6px;
+  display:none;
+  min-width:140px;
+  pointer-events:auto;
+}
+.csel-panel.open{display:block!important}
+.csel-option{
+  display:block;
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:var(--text);
+  font:inherit;
+  font-size:14.5px;
+  padding:9px 12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+  will-change:transform;
+}
+.csel-option:hover,
+.csel-option.is-active{
+  background:color-mix(in srgb,var(--wine) 18%,transparent);
+  color:var(--gold);
+}
+.csel-option.is-selected{
+  color:var(--gold);
+  font-weight:600;
+}
+/* inertia wiggle */
+@keyframes cselWiggle {
+  0%{transform:translateX(0)}
+  25%{transform:translateX(var(--wx,2px))}
+  55%{transform:translateX(calc(var(--wx,2px) * -0.45))}
+  100%{transform:translateX(0)}
+}
+.csel-option.wiggle{
+  animation:cselWiggle 1.05s cubic-bezier(.2,.75,.25,1) both;
+}
+
+.filter-control.is-active .csel-trigger{
+  border-bottom-color:var(--gold)!important;
+  border-bottom-width:2px!important;
+  color:var(--gold)!important;
+  font-weight:600;
+}
+/* hide native select when enhanced */
+.filter-control select.csel-native{
+  position:absolute!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  width:1px!important;height:1px!important;
+  overflow:hidden!important;
+}
+</style>
+
+
+<style id="v41-photo-force">
+.card-photo-wrap{
+  min-height:280px!important;
+  height:100%!important;
+  max-height:none!important;
+}
+.card-photo{
+  min-height:280px!important;
+  height:100%!important;
+  max-height:none!important;
+  width:100%!important;
+  object-fit:contain!important;
+  object-position:center center!important;
+  padding:0!important;
+}
+.card-info{min-height:280px!important}
+.wine-card{
+  grid-template-columns:minmax(130px,40%) minmax(0,1fr)!important;
+  padding:4px 12px 4px 4px!important;
+}
+@media(max-width:760px){
+  .card-photo-wrap,.card-photo,.card-info{min-height:230px!important}
+  .wine-card{grid-template-columns:minmax(110px,38%) minmax(0,1fr)!important}
+}
+</style>
+
+
+<style id="v43-polish">
+/* Filter hover animation back (custom + native) */
+.csel-trigger{
+  transition:border-color .2s ease,color .2s ease,box-shadow .2s ease!important;
+}
+.csel-trigger:hover{
+  border-bottom-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+.filter-control .price-trigger{
+  transition:border-color .2s ease,color .2s ease!important;
+}
+.filter-control .price-trigger:hover{
+  border-bottom-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+.filter-control>input:hover{
+  border-bottom-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+/* Quantity: glow only while focused/open, clear after change */
+.quantity-control select{
+  transition:border-color .2s ease,box-shadow .2s ease,color .2s ease!important;
+  border:1px solid var(--line)!important;
+  border-radius:6px!important;
+  background:var(--panel)!important;
+  color:var(--text)!important;
+  outline:none!important;
+  box-shadow:none!important;
+}
+.quantity-control select:hover{
+  border-color:var(--gold)!important;
+  color:var(--gold)!important;
+}
+.quantity-control select:focus{
+  border-color:var(--gold)!important;
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 28%,transparent)!important;
+  color:var(--gold)!important;
+}
+/* after selection browser may keep focus — blur on change via JS */
+
+/* Grape variety pills larger, card size unchanged */
+.card-info .wiki-link,
+.wine-card .wiki-link{
+  font-size:13.5px!important;
+  padding:6px 11px!important;
+  line-height:1.2!important;
+  border-radius:999px!important;
+  letter-spacing:.01em!important;
+}
+.card-info .pill{
+  font-size:12.5px!important;
+  padding:5px 9px!important;
+}
+.card-info .meta{
+  gap:7px!important;
+  flex-wrap:wrap!important;
+}
+</style>
+
+
+<style id="v44-theme-ui">
+/* Theme-aware scrollbars */
+html{
+  scrollbar-width:thin;
+  scrollbar-color:var(--wine) var(--panel2);
+}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{
+  background:var(--panel2);
+  border-left:1px solid var(--line);
+}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--gold),var(--wine));
+  border:2px solid var(--panel2);
+  border-radius:999px;
+}
+::-webkit-scrollbar-thumb:hover{background:var(--gold)}
+body[data-theme="white"]{
+  scrollbar-color:#a89058 #eee9d9;
+}
+body[data-theme="white"] ::-webkit-scrollbar-track{background:#eee9d9;border-color:#ded5bd}
+body[data-theme="white"] ::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#c4a86a,#8b7137);
+  border-color:#eee9d9;
+}
+body[data-theme="white"] ::-webkit-scrollbar-thumb:hover{background:#8b7137}
+body[data-theme="rose"]{
+  scrollbar-color:#b94f73 #f7e5e7;
+}
+body[data-theme="rose"] ::-webkit-scrollbar-track{background:#f7e5e7;border-color:#e8c2ce}
+body[data-theme="rose"] ::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,#d47898,#a83d62);
+  border-color:#f7e5e7;
+}
+body[data-theme="rose"] ::-webkit-scrollbar-thumb:hover{background:#a83d62}
+/* panels inherit too */
+.csel-panel, .modal, .price-popover{
+  scrollbar-width:thin;
+  scrollbar-color:var(--wine) var(--panel2);
+}
+body[data-theme="white"] .csel-panel,
+body[data-theme="white"] .modal,
+body[data-theme="white"] .price-popover{scrollbar-color:#a89058 #eee9d9}
+body[data-theme="rose"] .csel-panel,
+body[data-theme="rose"] .modal,
+body[data-theme="rose"] .price-popover{scrollbar-color:#b94f73 #f7e5e7}
+
+/* Subtle filter bar design — soft plate, don't touch hover underline behavior */
+.redesign-toolbar{
+  background:color-mix(in srgb,var(--panel) 72%,transparent)!important;
+  border:1px solid color-mix(in srgb,var(--line) 80%,transparent)!important;
+  border-radius:14px!important;
+  padding:12px 14px 10px!important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb,#fff 4%,transparent),
+    0 2px 8px color-mix(in srgb,#000 12%,transparent)!important;
+  gap:12px 14px!important;
+}
+body[data-theme="white"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffdf7 88%,#eee9d9)!important;
+  box-shadow:inset 0 1px 0 #fff, 0 2px 8px color-mix(in srgb,#5a4a2a 8%,transparent)!important;
+}
+body[data-theme="rose"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffafa 88%,#f7e5e7)!important;
+  box-shadow:inset 0 1px 0 #fff, 0 2px 8px color-mix(in srgb,#6a3048 8%,transparent)!important;
+}
+.filter-control>span{
+  opacity:.85;
+  font-weight:500!important;
+  letter-spacing:.04em!important;
+}
+.csel-trigger,
+.filter-control>input,
+.filter-control .price-trigger{
+  padding-left:2px!important;
+}
+
+/* Card shadow: darker, tighter, less blur */
+.wine-card{
+  box-shadow:
+    0 1px 0 color-mix(in srgb,#fff 5%,transparent),
+    0 1px 2px color-mix(in srgb,#000 40%,transparent),
+    0 4px 8px color-mix(in srgb,#000 32%,transparent),
+    0 10px 14px color-mix(in srgb,#000 22%,transparent)!important;
+}
+.wine-card:hover{
+  transform:translateY(-5px)!important;
+  box-shadow:
+    0 1px 0 color-mix(in srgb,#fff 6%,transparent),
+    0 2px 4px color-mix(in srgb,#000 42%,transparent),
+    0 8px 12px color-mix(in srgb,#000 34%,transparent),
+    0 16px 22px color-mix(in srgb,var(--wine) 35%,transparent),
+    0 22px 28px color-mix(in srgb,#000 28%,transparent)!important;
+}
+body[data-theme="white"] .wine-card{
+  box-shadow:
+    0 1px 0 #fff,
+    0 1px 2px color-mix(in srgb,#3a3220 22%,transparent),
+    0 4px 8px color-mix(in srgb,#3a3220 16%,transparent),
+    0 10px 14px color-mix(in srgb,#3a3220 12%,transparent)!important;
+}
+body[data-theme="white"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb,#3a3220 24%,transparent),
+    0 8px 12px color-mix(in srgb,#3a3220 18%,transparent),
+    0 16px 22px color-mix(in srgb,var(--wine) 28%,transparent),
+    0 22px 28px color-mix(in srgb,#3a3220 14%,transparent)!important;
+}
+body[data-theme="rose"] .wine-card{
+  box-shadow:
+    0 1px 0 #fff,
+    0 1px 2px color-mix(in srgb,#4a2030 22%,transparent),
+    0 4px 8px color-mix(in srgb,#4a2030 16%,transparent),
+    0 10px 14px color-mix(in srgb,#4a2030 12%,transparent)!important;
+}
+body[data-theme="rose"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb,#4a2030 24%,transparent),
+    0 8px 12px color-mix(in srgb,#4a2030 18%,transparent),
+    0 16px 22px color-mix(in srgb,var(--wine) 30%,transparent),
+    0 22px 28px color-mix(in srgb,#4a2030 14%,transparent)!important;
+}
+</style>
+
+
+<style id="v45-feel">
+/* Card hover: soft like .btn — no scale, gentle lift */
+.wine-card{
+  transition:
+    transform .32s cubic-bezier(.22,.7,.25,1),
+    box-shadow .32s cubic-bezier(.22,.7,.25,1),
+    border-color .28s ease!important;
+  will-change:transform;
+}
+.wine-card:hover{
+  transform:translateY(-3px)!important;
+  filter:none!important;
+  box-shadow:
+    0 1px 0 color-mix(in srgb,#fff 5%,transparent),
+    0 2px 4px color-mix(in srgb,#000 38%,transparent),
+    0 8px 14px color-mix(in srgb,#000 28%,transparent),
+    0 14px 22px color-mix(in srgb,var(--wine) 22%,transparent)!important;
+}
+.wine-card:active{
+  transform:translateY(-1px)!important;
+  transition-duration:.12s!important;
+}
+body[data-theme="white"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb,#3a3220 20%,transparent),
+    0 8px 14px color-mix(in srgb,#3a3220 14%,transparent),
+    0 14px 22px color-mix(in srgb,var(--wine) 20%,transparent)!important;
+}
+body[data-theme="rose"] .wine-card:hover{
+  box-shadow:
+    0 1px 0 #fff,
+    0 2px 4px color-mix(in srgb,#4a2030 20%,transparent),
+    0 8px 14px color-mix(in srgb,#4a2030 14%,transparent),
+    0 14px 22px color-mix(in srgb,var(--wine) 22%,transparent)!important;
+}
+
+/* Filter bar more transparent */
+.redesign-toolbar{
+  background:color-mix(in srgb,var(--panel) 38%,transparent)!important;
+  border-color:color-mix(in srgb,var(--line) 55%,transparent)!important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb,#fff 3%,transparent),
+    0 2px 8px color-mix(in srgb,#000 8%,transparent)!important;
+  backdrop-filter:blur(8px);
+}
+body[data-theme="white"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffdf7 45%,transparent)!important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 50%,transparent), 0 2px 8px color-mix(in srgb,#5a4a2a 5%,transparent)!important;
+}
+body[data-theme="rose"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffafa 45%,transparent)!important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 50%,transparent), 0 2px 8px color-mix(in srgb,#6a3048 5%,transparent)!important;
+}
+</style>
+
+
+<style id="v46-tweaks">
+.redesign-toolbar{
+  background:color-mix(in srgb,var(--panel) 18%,transparent)!important;
+  border-color:color-mix(in srgb,var(--line) 35%,transparent)!important;
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb,#fff 2%,transparent),
+    0 1px 4px color-mix(in srgb,#000 5%,transparent)!important;
+  backdrop-filter:blur(6px);
+}
+body[data-theme="white"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffdf7 22%,transparent)!important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 30%,transparent), 0 1px 4px color-mix(in srgb,#5a4a2a 4%,transparent)!important;
+}
+body[data-theme="rose"] .redesign-toolbar{
+  background:color-mix(in srgb,#fffafa 22%,transparent)!important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 30%,transparent), 0 1px 4px color-mix(in srgb,#6a3048 4%,transparent)!important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style id="v50-bg-art">
+/* Fixed top photo + long soft theme fade (texture stays on body) */
+body{
+  position:relative!important;
+  background-color:var(--bg)!important;
+}
+body:before{
+  content:""!important;
+  display:block!important;
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  height:min(48vw, 560px)!important;
+  margin:0!important;
+  padding:0!important;
+  background-image:url("hobbits_banner.jpg")!important;
+  background-repeat:no-repeat!important;
+  background-position:center top!important;
+  background-size:100% auto!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  opacity:1!important;
+  filter:none!important;
+}
+/* Long multi-stop veil → theme bg; grain/texture remains from body bg */
+body:after{
+  content:""!important;
+  display:block!important;
+  position:fixed!important;
+  top:0!important;
+  left:0!important;
+  right:0!important;
+  width:100%!important;
+  height:min(52vw, 600px)!important;
+  pointer-events:none!important;
+  z-index:0!important;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--bg) 12%,transparent) 0%,
+      transparent 12%,
+      transparent 28%,
+      color-mix(in srgb,var(--bg) 18%,transparent) 42%,
+      color-mix(in srgb,var(--bg) 42%,transparent) 58%,
+      color-mix(in srgb,var(--bg) 72%,transparent) 76%,
+      color-mix(in srgb,var(--bg) 92%,transparent) 90%,
+      var(--bg) 100%),
+    linear-gradient(90deg,
+      color-mix(in srgb,var(--bg) 55%,transparent) 0%,
+      transparent 14%,
+      transparent 86%,
+      color-mix(in srgb,var(--bg) 55%,transparent) 100%),
+    radial-gradient(ellipse 95% 70% at 50% 20%,
+      transparent 35%,
+      color-mix(in srgb,var(--bg) 25%,transparent) 70%,
+      color-mix(in srgb,var(--bg) 55%,transparent) 100%)!important;
+}
+body[data-theme="white"]:after{
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--bg) 18%,transparent) 0%,
+      transparent 14%,
+      color-mix(in srgb,var(--bg) 22%,transparent) 40%,
+      color-mix(in srgb,var(--bg) 48%,transparent) 58%,
+      color-mix(in srgb,var(--bg) 78%,transparent) 78%,
+      var(--bg) 100%),
+    linear-gradient(90deg,
+      color-mix(in srgb,var(--bg) 50%,transparent) 0%,
+      transparent 12%,
+      transparent 88%,
+      color-mix(in srgb,var(--bg) 50%,transparent) 100%),
+    radial-gradient(ellipse 95% 70% at 50% 20%, transparent 40%, color-mix(in srgb,var(--bg) 35%,transparent) 100%)!important;
+}
+body[data-theme="rose"]:after{
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb,var(--bg) 16%,transparent) 0%,
+      transparent 14%,
+      color-mix(in srgb,var(--bg) 20%,transparent) 40%,
+      color-mix(in srgb,var(--bg) 46%,transparent) 58%,
+      color-mix(in srgb,var(--bg) 76%,transparent) 78%,
+      var(--bg) 100%),
+    linear-gradient(90deg,
+      color-mix(in srgb,var(--bg) 50%,transparent) 0%,
+      transparent 12%,
+      transparent 88%,
+      color-mix(in srgb,var(--bg) 50%,transparent) 100%),
+    radial-gradient(ellipse 95% 70% at 50% 20%, transparent 40%, color-mix(in srgb,var(--bg) 32%,transparent) 100%)!important;
+}
+body > .wrap{
+  position:relative!important;
+  z-index:1!important;
+  margin-top:0!important;
+}
+
+/* Soft readable type over photo — minimal, glam */
+header .header-logo{
+  color:var(--gold)!important;
+  text-shadow:
+    0 1px 2px color-mix(in srgb,#000 55%,transparent),
+    0 4px 18px color-mix(in srgb,#000 40%,transparent)!important;
+  letter-spacing:.28em;
+}
+header .theme-trigger,
+header .settings-icon{
+  box-shadow:0 2px 12px color-mix(in srgb,#000 28%,transparent)!important;
+}
+.hero .stats .stat strong{
+  color:var(--gold)!important;
+  text-shadow:
+    0 1px 2px color-mix(in srgb,#000 50%,transparent),
+    0 3px 14px color-mix(in srgb,#000 35%,transparent)!important;
+}
+.hero .stats .stat span{
+  color:color-mix(in srgb,var(--text) 88%,var(--gold))!important;
+  text-shadow:0 1px 8px color-mix(in srgb,#000 45%,transparent)!important;
+}
+body[data-theme="white"] header .header-logo,
+body[data-theme="white"] .hero .stats .stat strong{
+  text-shadow:
+    0 1px 0 #fff,
+    0 2px 10px color-mix(in srgb,#5a4a2a 25%,transparent)!important;
+}
+body[data-theme="white"] .hero .stats .stat span{
+  text-shadow:0 1px 0 #fff, 0 1px 6px color-mix(in srgb,#5a4a2a 18%,transparent)!important;
+}
+body[data-theme="rose"] header .header-logo,
+body[data-theme="rose"] .hero .stats .stat strong{
+  text-shadow:
+    0 1px 0 #fff,
+    0 2px 10px color-mix(in srgb,#4a2030 22%,transparent)!important;
+}
+</style>
+
+</html>
