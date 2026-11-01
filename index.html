@@ -1989,6 +1989,8 @@ body[data-theme="red"]{--bg:#1d0d12!important;--panel:#261117!important;--panel2
 </style>
 </head>
 <body>
+<div id="siteHeaderArt" aria-hidden="true"><img id="siteHeaderArtImg" alt=""></div>
+
 <div class="wrap">
 <header>
 <div class="header-spacer" aria-hidden="true"></div>
@@ -2099,31 +2101,37 @@ body[data-theme="red"]{--bg:#1d0d12!important;--panel:#261117!important;--panel2
 <div id="wikiPage" class="wiki-page" hidden>
 </div>
 <div class="modalback" id="settingsBack">
-<div class="modal">
+<div class="modal settings-modal">
 <div class="eyebrow">Персонализация сайта</div>
 <h2>Настроить оформление</h2>
-<p class="sub">Меняй название, тексты и тему. Настройки сохраняются в этом браузере. Следующим этапом можно добавить перестановку блоков и общую синхронизацию через интернет.</p>
+<p class="sub">Тексты, шапка и дизайн трёх тем. Сохраняется в этом браузере.</p>
 <form id="settingsForm">
+<div class="settings-section">
+<div class="settings-section-title">Шапка и тексты</div>
 <div class="settings-grid">
-<label>Название в шапке<input name="brand" id="settingBrand" maxlength="60">
-</label>
-<label>Подпись в шапке<input name="subtitle" id="settingSubtitle" maxlength="100">
-</label>
-<label style="grid-column:1/-1">Главный заголовок<input name="headline" id="settingHeadline" maxlength="120">
-</label>
-<label style="grid-column:1/-1">Описание сайта<textarea name="intro" id="settingIntro" maxlength="500">
-</textarea>
-</label>
-<label>Подпись над заголовком<input name="eyebrow" id="settingEyebrow" maxlength="100">
-</label>
-<label>Название каталога<input name="catalogTitle" id="settingCatalogTitle" maxlength="80">
-</label>
+<label>Название в шапке<input name="brand" id="settingBrand" maxlength="60"></label>
+<label>Подпись в шапке<input name="subtitle" id="settingSubtitle" maxlength="100"></label>
+<label style="grid-column:1/-1">Главный заголовок<input name="headline" id="settingHeadline" maxlength="120"></label>
+<label style="grid-column:1/-1">Описание сайта<textarea name="intro" id="settingIntro" maxlength="500"></textarea></label>
+<label>Подпись над заголовком<input name="eyebrow" id="settingEyebrow" maxlength="100"></label>
+<label>Название каталога<input name="catalogTitle" id="settingCatalogTitle" maxlength="80"></label>
 </div>
-<div class="settings-note">Три темы меняют палитру сайта: бордовая для красного вина, светлая для белого и розово-ягодная для розового. Сами данные вин не меняются при переключении темы.</div>
-<div class="modal-actions">
+</div>
+<div class="settings-section">
+<div class="settings-section-title">Дизайн темы</div>
+<div class="theme-edit-tabs" id="themeEditTabs">
+<button type="button" class="theme-edit-tab active" data-edit-theme="red">Красная</button>
+<button type="button" class="theme-edit-tab" data-edit-theme="white">Светлая</button>
+<button type="button" class="theme-edit-tab" data-edit-theme="rose">Розовая</button>
+</div>
+<p class="sub" style="margin:8px 0 12px">Выбери тему и настрой её цвета и шрифты. Переключатель тем на сайте покажет эти настройки.</p>
+<div id="themeDesignFields" class="theme-design-fields"></div>
+</div>
+<div class="modal-actions settings-actions">
 <button class="btn" type="submit">Сохранить настройки</button>
 <button class="btn secondary" type="button" id="resetSettings">Вернуть исходный вид</button>
 <button class="btn secondary" type="button" id="closeSettings">Закрыть</button>
+<button class="btn danger" type="button" id="logoutBtn">Выход</button>
 </div>
 </form>
 </div>
@@ -2163,13 +2171,244 @@ const SUPABASE_URL='https://wueuvlzqzkyoiacmcscs.supabase.co';
 const SUPABASE_ANON_KEY='sb_publishable_ScffbPefIGseME5w889XPw_zz4iTosF';
 const SESSION_KEY='vinotheque_supabase_session_v1';
 let adminSession=null, cloudReady=false, cloudSaving=false, cloudCatalogEmpty=null;
-const SETTINGS_KEY='vinotheque_settings_v2';
-const DEFAULT_SETTINGS={brand:'VINOCARD',subtitle:'',eyebrow:'Коллекция · Вкус · История',headline:'У каждого вина\\nсвой характер.',intro:'Личный каталог вин — от повседневных находок до бутылок, которые запоминаются. Ищите, сравнивайте и изучайте коллекцию.',catalogTitle:'Винная карта'};
-let siteSettings=loadSettings();
-function loadSettings(){try{return {...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')}}catch(e){return {...DEFAULT_SETTINGS}}}
-function applySettings(){ if($('brandText'))$('brandText').textContent='VINOCARD'; if($('brandSubtitle'))$('brandSubtitle').textContent=siteSettings.subtitle; const heroEyebrow=document.querySelector('.hero .eyebrow'); if(heroEyebrow)heroEyebrow.textContent=siteSettings.eyebrow; if($('heroHeadline'))$('heroHeadline').innerHTML=esc(siteSettings.headline).replace(/\\n/g,'<br>'); if($('heroIntro'))$('heroIntro').textContent=siteSettings.intro; if($('catalogHeading'))$('catalogHeading').textContent=siteSettings.catalogTitle; }
-function setTheme(theme){if(!['red','white','rose'].includes(theme))theme='red';document.body.dataset.theme=theme;localStorage.setItem('vinotheque_theme_v1',theme);document.querySelectorAll('[data-set-theme]').forEach(b=>b.classList.toggle('active',b.dataset.setTheme===theme))}
-function openSettings(){ $('settingBrand').value=siteSettings.brand; $('settingSubtitle').value=siteSettings.subtitle; $('settingHeadline').value=siteSettings.headline; $('settingIntro').value=siteSettings.intro; $('settingEyebrow').value=siteSettings.eyebrow; $('settingCatalogTitle').value=siteSettings.catalogTitle; $('settingsBack').style.display='flex'}
+const SETTINGS_KEY='vinotheque_settings_v3';
+const THEME_DESIGN_DEFAULTS={
+  red:{bg:'#110d0f',panel:'#1c1519',panel2:'#261a20',wine:'#7e263d',gold:'#d8b77a',text:'#f4eee7',muted:'#b8a9a5',line:'#463038',cardBg1:'#251920',cardBg2:'#181216',pillBg:'#302027',pillText:'#d6c3c1',fontFamily:'Inter, Segoe UI, Arial, sans-serif',fontWeight:'400',titleWeight:'400',bgFade:'72',panelOpacity:'100',cardOpacity:'100',headerImage:''},
+  white:{bg:'#f7f5ed',panel:'#fffdf7',panel2:'#eee9d9',wine:'#b59b58',gold:'#8b7137',text:'#332f25',muted:'#7b7565',line:'#ded5bd',cardBg1:'#fffdf7',cardBg2:'#f7f3e8',pillBg:'#e3eee6',pillText:'#3d5d4c',fontFamily:'Inter, Segoe UI, Arial, sans-serif',fontWeight:'400',titleWeight:'400',bgFade:'72',panelOpacity:'100',cardOpacity:'100',headerImage:''},
+  rose:{bg:'#fff5f5',panel:'#fffafa',panel2:'#f7e5e7',wine:'#b94f73',gold:'#923752',text:'#3c202b',muted:'#866774',line:'#e8c2ce',cardBg1:'#fffafa',cardBg2:'#fceef1',pillBg:'#f5dce4',pillText:'#79334b',fontFamily:'Inter, Segoe UI, Arial, sans-serif',fontWeight:'400',titleWeight:'400',bgFade:'72',panelOpacity:'100',cardOpacity:'100',headerImage:''}
+};
+let editingThemeKey='red';
+function ensureThemeDesign(s){
+  s=s||{};
+  if(!s.themeDesign)s.themeDesign={};
+  for(const k of ['red','white','rose']){
+    s.themeDesign[k]={...THEME_DESIGN_DEFAULTS[k],...(s.themeDesign[k]||{})};
+  }
+  return s;
+}
+function hexToRgba(hex, opacityPct){
+  let h=String(hex||'#000000').replace('#','');
+  if(h.length===3)h=h.split('').map(x=>x+x).join('');
+  const n=parseInt(h,16); if(Number.isNaN(n))return hex;
+  const r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+  const a=Math.max(0,Math.min(100,Number(opacityPct)||100))/100;
+  return `rgba(${r},${g},${b},${a})`;
+}
+function headerImgFor(t){
+  return (t&&t.headerImage)||'hobbits_banner.jpg';
+}
+function applyThemeDesign(){
+  try{
+    if(!siteSettings)siteSettings=loadSettings();
+    siteSettings=ensureThemeDesign(siteSettings);
+    const theme=(document.body&&document.body.dataset.theme)||'red';
+    const t=siteSettings.themeDesign[theme]||siteSettings.themeDesign.red;
+    const fade=Math.max(30,Math.min(92,Number(t.bgFade)||72));
+    const pOp=Math.max(40,Math.min(100,Number(t.panelOpacity)||100));
+    const cOp=Math.max(40,Math.min(100,Number(t.cardOpacity)||100));
+    const panelRgba=hexToRgba(t.panel,pOp);
+    const card1=hexToRgba(t.cardBg1,cOp);
+    const card2=hexToRgba(t.cardBg2,cOp);
+    const img=headerImgFor(t);
+    const artImg=$('siteHeaderArtImg');
+    const art=$('siteHeaderArt');
+    if(artImg){artImg.src=img;artImg.style.display='block'}
+    if(art){
+      art.style.setProperty('--header-fade', String(fade));
+      art.style.setProperty('--header-bg', t.bg);
+    }
+    const css=`
+html,body{
+  background:${t.bg} !important;
+  background-image:none !important;
+  background-color:${t.bg} !important;
+  color:${t.text} !important;
+  font-family:${t.fontFamily} !important;
+  font-weight:${t.fontWeight} !important;
+  --bg:${t.bg} !important;
+  --panel:${t.panel} !important;
+  --panel2:${t.panel2} !important;
+  --wine:${t.wine} !important;
+  --gold:${t.gold} !important;
+  --text:${t.text} !important;
+  --muted:${t.muted} !important;
+  --line:${t.line} !important;
+}
+body{isolation:auto !important}
+body:before,body:after{content:none!important;display:none!important;background:none!important}
+body > .wrap{position:relative!important;z-index:2!important}
+#siteHeaderArt{
+  position:fixed!important;top:0!important;left:0!important;right:0!important;
+  width:100%!important;height:min(56vw,680px)!important;max-height:680px!important;
+  z-index:0!important;pointer-events:none!important;overflow:hidden!important;
+}
+#siteHeaderArt img{
+  width:100%!important;height:100%!important;object-fit:cover!important;object-position:center top!important;
+  display:block!important;
+}
+#siteHeaderArt:after{
+  content:""!important;position:absolute!important;inset:0!important;
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    transparent 82%,
+    color-mix(in srgb, ${t.bg} 20%, transparent) 92%,
+    ${t.bg} 100%) !important;
+}
+#siteHeaderArt{
+  height:min(56vw, 680px) !important;
+  max-height:680px !important;
+}
+#siteHeaderArt img{
+  object-position:center 28% !important;
+}
+.wine-card,.card,.grid .wine-card,.grid .card,article.card,article.wine-card{
+  background:linear-gradient(145deg, ${card1}, ${card2}) !important;
+  background-color:${card1} !important;
+  color:${t.text} !important;
+}
+.modal,.csel-panel,.price-popover,.redesign-toolbar,.settings-section,
+.pagination .btn.secondary,#paginationTop .btn.secondary,#compareBtn.btn.secondary{
+  background:${panelRgba} !important;
+  color:var(--text) !important;
+  border:1px solid var(--line) !important;
+  box-shadow:none !important;
+}
+.pill,.wiki-link,.variety-chip{
+  background:${t.pillBg} !important;
+  color:${t.pillText} !important;
+}
+.header-logo{color:${t.gold} !important;font-weight:${t.titleWeight} !important;font-family:${t.fontFamily} !important}
+h1,h2,.card-info h3{font-weight:${t.titleWeight} !important;font-family:${t.fontFamily} !important}
+.price{color:${t.gold} !important}
+`;
+    let el=document.getElementById('customThemeDesign');
+    if(!el){el=document.createElement('style');el.id='customThemeDesign'}
+    el.textContent=css;
+    document.documentElement.appendChild(el);
+  }catch(err){console.error('applyThemeDesign',err)}
+}
+function colorField(id,label,val){
+  const v=(/^#[0-9A-Fa-f]{6}$/i.test(val)?val:'#888888');
+  return `<label class="color-field"><span>${label}</span><span class="color-row"><input type="color" id="${id}" value="${v}"><input type="text" id="${id}_hex" value="${v}" maxlength="7"></span></label>`;
+}
+function paintThemeDesignFields(){
+  siteSettings=ensureThemeDesign(siteSettings);
+  const t=siteSettings.themeDesign[editingThemeKey];
+  const root=$('themeDesignFields');
+  if(!root)return;
+  root.innerHTML=`
+  <div class="settings-grid theme-design-grid">
+  <label style="grid-column:1/-1">Фото шапки
+    <input type="file" id="td_headerImage" accept="image/*">
+    <span class="sub" id="td_headerImageStatus">${t.headerImage?'Загружено':'По умолчанию'}</span>
+    <button type="button" class="btn secondary" id="td_headerImageClear" style="margin-top:6px">Сбросить</button>
+  </label>
+  ${colorField('td_bg','Фон',t.bg)}
+  ${colorField('td_panel','Панели',t.panel)}
+  ${colorField('td_panel2','Панель 2',t.panel2)}
+  ${colorField('td_wine','Акцент',t.wine)}
+  ${colorField('td_gold','Золото',t.gold)}
+  ${colorField('td_text','Текст',t.text)}
+  ${colorField('td_muted','Вторичный текст',t.muted)}
+  ${colorField('td_line','Линии',t.line)}
+  ${colorField('td_card1','Карточка',t.cardBg1)}
+  ${colorField('td_card2','Карточка 2',t.cardBg2)}
+  ${colorField('td_pillBg','Плашки фон',t.pillBg)}
+  ${colorField('td_pillText','Плашки текст',t.pillText)}
+  <label style="grid-column:1/-1">Шрифт<select id="td_fontFamily">
+    <option value="Inter, Segoe UI, Arial, sans-serif">Inter</option>
+    <option value="Georgia, 'Times New Roman', Times, serif">Georgia</option>
+    <option value="'Times New Roman', Times, serif">Times New Roman</option>
+    <option value="Arial, Helvetica, sans-serif">Arial</option>
+    <option value="Helvetica, Arial, sans-serif">Helvetica</option>
+    <option value="Verdana, Geneva, sans-serif">Verdana</option>
+    <option value="Tahoma, Verdana, sans-serif">Tahoma</option>
+    <option value="'Trebuchet MS', Helvetica, sans-serif">Trebuchet MS</option>
+    <option value="'Segoe UI', Tahoma, sans-serif">Segoe UI</option>
+    <option value="system-ui, -apple-system, sans-serif">System UI</option>
+    <option value="'Palatino Linotype', Palatino, serif">Palatino</option>
+    <option value="Garamond, Baskerville, serif">Garamond</option>
+    <option value="'Courier New', Courier, monospace">Courier New</option>
+    <option value="Impact, Haettenschweiler, sans-serif">Impact</option>
+    <option value="'Lucida Sans Unicode', 'Lucida Grande', sans-serif">Lucida Sans</option>
+  </select></label>
+  <label>Жирность текста<select id="td_fontWeight"><option value="300">300</option><option value="400">400</option><option value="500">500</option><option value="600">600</option><option value="700">700</option></select></label>
+  <label>Жирность заголовков<select id="td_titleWeight"><option value="300">300</option><option value="400">400</option><option value="500">500</option><option value="600">600</option><option value="700">700</option></select></label>
+  <label style="grid-column:1/-1">Прозрачность панелей <span id="td_panelOpacityVal">${t.panelOpacity||100}%</span><input type="range" id="td_panelOpacity" min="30" max="100" value="${t.panelOpacity||100}"></label>
+  <label style="grid-column:1/-1">Прозрачность карточек <span id="td_cardOpacityVal">${t.cardOpacity||100}%</span><input type="range" id="td_cardOpacity" min="30" max="100" value="${t.cardOpacity||100}"></label>
+  <label style="grid-column:1/-1">Переход шапки в фон <span id="td_bgFadeVal">${t.bgFade||72}%</span><input type="range" id="td_bgFade" min="30" max="95" value="${t.bgFade||72}"></label>
+  </div>`;
+  try{$('td_fontFamily').value=t.fontFamily}catch(e){}
+  try{$('td_fontWeight').value=t.fontWeight}catch(e){}
+  try{$('td_titleWeight').value=t.titleWeight}catch(e){}
+  const bindColor=(cid)=>{
+    const c=$(cid), h=$(cid+'_hex');
+    if(!c||!h)return;
+    c.oninput=()=>{h.value=c.value;previewThemeLive()};
+    h.oninput=()=>{let v=h.value.trim();if(v&&v[0]!=='#')v='#'+v;if(/^#[0-9A-Fa-f]{6}$/i.test(v)){c.value=v.toLowerCase();previewThemeLive()}};
+  };
+  ['td_bg','td_panel','td_panel2','td_wine','td_gold','td_text','td_muted','td_line','td_card1','td_card2','td_pillBg','td_pillText'].forEach(bindColor);
+  const bindRange=(id,valId)=>{const el=$(id);if(!el)return;el.oninput=()=>{if($(valId))$(valId).textContent=el.value+'%';previewThemeLive()}};
+  bindRange('td_bgFade','td_bgFadeVal');
+  bindRange('td_panelOpacity','td_panelOpacityVal');
+  bindRange('td_cardOpacity','td_cardOpacityVal');
+  ['td_fontFamily','td_fontWeight','td_titleWeight'].forEach(id=>{const el=$(id);if(el)el.onchange=previewThemeLive});
+  if($('td_headerImage'))$('td_headerImage').onchange=e=>{
+    const file=e.target.files&&e.target.files[0]; if(!file)return;
+    if(file.size>2.5*1024*1024){alert('Файл слишком большой (макс ~2.5 МБ)');return}
+    const r=new FileReader();
+    r.onload=()=>{
+      siteSettings=ensureThemeDesign(siteSettings);
+      siteSettings.themeDesign[editingThemeKey].headerImage=r.result;
+      if($('td_headerImageStatus'))$('td_headerImageStatus').textContent='Загружено';
+      applyThemeDesign();
+    };
+    r.onerror=()=>alert('Не удалось прочитать файл');
+    r.readAsDataURL(file);
+  };
+  if($('td_headerImageClear'))$('td_headerImageClear').onclick=()=>{
+    siteSettings=ensureThemeDesign(siteSettings);
+    siteSettings.themeDesign[editingThemeKey].headerImage='';
+    if($('td_headerImage'))$('td_headerImage').value='';
+    if($('td_headerImageStatus'))$('td_headerImageStatus').textContent='По умолчанию';
+    applyThemeDesign();
+  };
+}
+function readThemeDesignFields(){
+  siteSettings=ensureThemeDesign(siteSettings);
+  const t=siteSettings.themeDesign[editingThemeKey];
+  const hx=(id,fallback)=>{
+    const c=$(id), h=$(id+'_hex');
+    let v=(h&&h.value||c&&c.value||fallback||'').trim();
+    if(v&&v[0]!=='#')v='#'+v;
+    return /^#[0-9A-Fa-f]{6}$/i.test(v)?v.toLowerCase():fallback;
+  };
+  t.bg=hx('td_bg',t.bg);t.panel=hx('td_panel',t.panel);t.panel2=hx('td_panel2',t.panel2);
+  t.wine=hx('td_wine',t.wine);t.gold=hx('td_gold',t.gold);t.text=hx('td_text',t.text);
+  t.muted=hx('td_muted',t.muted);t.line=hx('td_line',t.line);
+  t.cardBg1=hx('td_card1',t.cardBg1);t.cardBg2=hx('td_card2',t.cardBg2);
+  t.pillBg=hx('td_pillBg',t.pillBg);t.pillText=hx('td_pillText',t.pillText);
+  if($('td_fontFamily'))t.fontFamily=$('td_fontFamily').value;
+  if($('td_fontWeight'))t.fontWeight=$('td_fontWeight').value;
+  if($('td_titleWeight'))t.titleWeight=$('td_titleWeight').value;
+  if($('td_bgFade'))t.bgFade=String($('td_bgFade').value);
+  if($('td_panelOpacity'))t.panelOpacity=String($('td_panelOpacity').value);
+  if($('td_cardOpacity'))t.cardOpacity=String($('td_cardOpacity').value);
+  siteSettings.themeDesign[editingThemeKey]=t;
+}
+function previewThemeLive(){
+  readThemeDesignFields();
+  applyThemeDesign();
+}
+
+const DEFAULT_SETTINGS={brand:'VINOCARD',subtitle:'',eyebrow:'Коллекция · Вкус · История',headline:'У каждого вина\nсвой характер.',intro:'Личный каталог вин — от повседневных находок до бутылок, которые запоминаются. Ищите, сравнивайте и изучайте коллекцию.',catalogTitle:'Винная карта'};
+let siteSettings=null;
+function loadSettings(){try{return ensureThemeDesign({...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(SETTINGS_KEY)||'{}')})}catch(e){return ensureThemeDesign({...DEFAULT_SETTINGS})}}
+siteSettings=loadSettings();
+
+function applySettings(){ if($('brandText'))$('brandText').textContent=siteSettings.brand||'VINOCARD'; applyThemeDesign(); if($('brandSubtitle'))$('brandSubtitle').textContent=siteSettings.subtitle; const heroEyebrow=document.querySelector('.hero .eyebrow'); if(heroEyebrow)heroEyebrow.textContent=siteSettings.eyebrow; if($('heroHeadline'))$('heroHeadline').innerHTML=esc(siteSettings.headline).replace(/\\n/g,'<br>'); if($('heroIntro'))$('heroIntro').textContent=siteSettings.intro; if($('catalogHeading'))$('catalogHeading').textContent=siteSettings.catalogTitle; }
+function setTheme(theme){if(!['red','white','rose'].includes(theme))theme='red';document.body.dataset.theme=theme;localStorage.setItem('vinotheque_theme_v1',theme);document.querySelectorAll('[data-set-theme]').forEach(b=>b.classList.toggle('active',b.dataset.setTheme===theme));applyThemeDesign()}
+function openSettings(){ siteSettings=ensureThemeDesign(siteSettings); $('settingBrand').value=siteSettings.brand; $('settingSubtitle').value=siteSettings.subtitle; $('settingHeadline').value=siteSettings.headline; $('settingIntro').value=siteSettings.intro; $('settingEyebrow').value=siteSettings.eyebrow; $('settingCatalogTitle').value=siteSettings.catalogTitle; editingThemeKey=document.body.dataset.theme||'red'; if(!['red','white','rose'].includes(editingThemeKey))editingThemeKey='red'; document.querySelectorAll('.theme-edit-tab').forEach(b=>b.classList.toggle('active',b.dataset.editTheme===editingThemeKey)); paintThemeDesignFields(); $('settingsBack').style.display='flex'}
 let wines = loadData(), editingIndex=null;
 const fields = ['Название','Страна','Регион','Винтаж','Сорт','Вкус','Цвет','Алк%','Цена','Рейтинг'];
 const $=id=>document.getElementById(id);
@@ -2184,7 +2423,14 @@ function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 function numeric(v){if(v===null||v===undefined||v==='')return null;let n=Number(String(v).replace(',','.'));return Number.isFinite(n)?n:null}
 function normalizeGrape(s){return String(s||'').toLocaleLowerCase('ru-RU').replace(/[\u2010-\u2015\-–—_]+/g,' ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim()}
 function options(id,key,label,split=false){const sel=$(id), old=sel.value;const raw=wines.flatMap(w=>{const v=w[key];if(v===null||v===undefined||v==='')return [];return split?String(v).split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean):[String(v).trim()]}).filter(Boolean);const unique=new Map();raw.forEach(v=>{const norm=normalizeGrape(v);if(!norm)return;if(!unique.has(norm))unique.set(norm,v.trim().replace(/\s+/g,' '))});const values=[...unique.values()].sort((a,b)=>String(a).localeCompare(String(b),'ru',{sensitivity:'base'}));sel.innerHTML=`<option value="">${label}</option>`+values.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');const match=values.find(v=>normalizeGrape(v)===normalizeGrape(old));sel.value=match||'';window._grapeSuggestions=values}
-function getGrapeSuggestions(q){const n=normalizeGrape(q);if(!n)return (window._grapeSuggestions||[]).slice(0,12);return (window._grapeSuggestions||[]).filter(v=>normalizeGrape(v).startsWith(n)||normalizeGrape(v).includes(n)).slice(0,12)}
+function getGrapeSuggestions(q){
+  const n=normalizeGrape(q);
+  if(!n)return [];
+  const all=window._grapeSuggestions||[];
+  const starts=all.filter(v=>normalizeGrape(v).startsWith(n));
+  if(starts.length)return starts.slice(0,14);
+  return all.filter(v=>normalizeGrape(v).includes(n)).slice(0,10);
+}
 function getProfile(w){
  if(Array.isArray(w._profile)&&w._profile.length===PROFILE_AXES.length){
   let p=w._profile.map(v=>Math.max(0,Math.min(10,Number(v)||0)));
@@ -2289,30 +2535,46 @@ $('priceMaxRange').addEventListener('input',()=>{let lo=Number($('priceMinRange'
 $('priceApply').onclick=()=>{$('priceFilter').classList.remove('open');clampPriceInputs();currentPage=1;render()};
 $('priceReset').onclick=()=>{$('priceMin').value='';$('priceMax').value='';syncPriceUI();currentPage=1;render()};
 document.addEventListener('click',e=>{if(!$('priceFilter').contains(e.target))$('priceFilter').classList.remove('open')});
-function openEditor(i=null){if(!adminSession){showLogin();return}editingIndex=i;$('editTitle').textContent=i===null?'Добавить вино':'Редактировать вино';const w=i===null?{}:wines[i];const countries=['Аргентина','Австралия','Австрия','Болгария','Германия','Греция','Грузия','Испания','Италия','Канада','Китай','Молдова','Новая Зеландия','Португалия','Россия','США','Сербия','Словения','Украина','Уругвай','Франция','Хорватия','Чили','Швейцария','ЮАР','Япония'];$('editorFields').innerHTML=fields.map(k=>{if(k==='Рейтинг'){const initial=Math.max(0,Math.min(100,Math.round(numeric(w[k])??0)));return `<div class="rating-editor-label"><label>Рейтинг вина</label><div class="rating-editor" id="ratingEditor"><input type="range" id="ratingValue" name="Рейтинг" min="0" max="100" step="1" value="${initial}"><span class="rating-hint" id="ratingHint">${initial}/100</span><span id="ratingPreview">${glassSvg(initial)}</span></div></div>`}if(k==='Цвет')return `<label>${esc(k)}<select name="Цвет"><option value="">Выбрать цвет</option>${['Красное','Белое','Розовое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase().includes(v.toLowerCase())?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Страна')return `<label>${esc(k)}<select name="Страна"><option value="">Выбрать страну</option>${[...new Set([...countries,w[k]].filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru')).map(v=>`<option value="${esc(v)}" ${w[k]===v?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`;if(k==='Вкус')return `<label>${esc(k)}<select name="Вкус"><option value="">Выбрать вкус</option>${['Сладкое','Полусладкое','Сухое','Полусухое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase()===v.toLowerCase()?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Винтаж'){let y=Number(w[k])||new Date().getFullYear();return `<label>${esc(k)}<select name="Винтаж"><option value="">Без винтажа</option>${Array.from({length:new Date().getFullYear()-1989},(_,j)=>new Date().getFullYear()-j).map(v=>`<option value="${v}" ${y===v?'selected':''}>${v}</option>`).join('')}</select></label>`}if(k==='Сорт'){const val=esc(w[k]??'');return `<label class="variety-editor-label">${esc(k)}<input name="Сорт" id="varietyInput" type="text" list="grapeDatalist" autocomplete="off" placeholder="Начните вводить сорт…" value="${val}"><datalist id="grapeDatalist"></datalist><div id="grapeSuggest" class="grape-suggest" hidden></div></label>`}
+function openEditor(i=null){if(!adminSession){showLogin();return}editingIndex=i;$('editTitle').textContent=i===null?'Добавить вино':'Редактировать вино';const w=i===null?{}:wines[i];const countries=['Аргентина','Австралия','Австрия','Болгария','Германия','Греция','Грузия','Испания','Италия','Канада','Китай','Молдова','Новая Зеландия','Португалия','Россия','США','Сербия','Словения','Украина','Уругвай','Франция','Хорватия','Чили','Швейцария','ЮАР','Япония'];$('editorFields').innerHTML=fields.map(k=>{if(k==='Рейтинг'){const initial=Math.max(0,Math.min(100,Math.round(numeric(w[k])??0)));return `<div class="rating-editor-label"><label>Рейтинг вина</label><div class="rating-editor" id="ratingEditor"><input type="range" id="ratingValue" name="Рейтинг" min="0" max="100" step="1" value="${initial}"><span class="rating-hint" id="ratingHint">${initial}/100</span><span id="ratingPreview">${glassSvg(initial)}</span></div></div>`}if(k==='Цвет')return `<label>${esc(k)}<select name="Цвет"><option value="">Выбрать цвет</option>${['Красное','Белое','Розовое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase().includes(v.toLowerCase())?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Страна')return `<label>${esc(k)}<select name="Страна"><option value="">Выбрать страну</option>${[...new Set([...countries,w[k]].filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ru')).map(v=>`<option value="${esc(v)}" ${w[k]===v?'selected':''}>${esc(v)}</option>`).join('')}</select></label>`;if(k==='Вкус')return `<label>${esc(k)}<select name="Вкус"><option value="">Выбрать вкус</option>${['Сладкое','Полусладкое','Сухое','Полусухое'].map(v=>`<option value="${v}" ${String(w[k]||'').toLowerCase()===v.toLowerCase()?'selected':''}>${v}</option>`).join('')}</select></label>`;if(k==='Винтаж'){let y=Number(w[k])||new Date().getFullYear();return `<label>${esc(k)}<select name="Винтаж"><option value="">Без винтажа</option>${Array.from({length:new Date().getFullYear()-1989},(_,j)=>new Date().getFullYear()-j).map(v=>`<option value="${v}" ${y===v?'selected':''}>${v}</option>`).join('')}</select></label>`}if(k==='Сорт'){const val=esc(w[k]??'');return `<div class="variety-editor-label"><span class="variety-label-text">Сорт</span><div class="variety-chips" id="varietyChips"></div><div class="variety-input-row"><input type="text" id="varietyInput" autocomplete="off" placeholder="Начните вводить сорт…" value=""><input type="hidden" name="Сорт" id="varietyHidden" value="${val}"></div><div id="grapeSuggest" class="grape-suggest" hidden></div></div>`}
 const type=['Алк%','Цена'].includes(k)?'number':'text';return `<label>${esc(k)}<input name="${esc(k)}" type="${type}" ${k==='Цена'?'min="0" step="any" placeholder="Цена в рублях"':''} ${k==='Алк%'?'min="0" max="100" step="any" placeholder="Например, 13,5"':''} value="${esc(w[k]??'')}" ${k==='Название'?'required':''}></label>`}).join('');setupRatingEditor(w);setupVarietySuggest();$('wineCommentInput').value=w._comment||'';$('wineImageFile').value='';renderPhotoManager(w);$('editBack').style.display='flex'}
 function setupVarietySuggest(){
-  const input=$('varietyInput'), box=$('grapeSuggest'), dl=$('grapeDatalist');
-  if(!input)return;
-  // ensure suggestions list is fresh
+  const input=$('varietyInput'), box=$('grapeSuggest'), chipsEl=$('varietyChips'), hidden=$('varietyHidden');
+  if(!input||!chipsEl||!hidden)return;
   options('variety','Сорт','Любой',true);
-  const paint=(q)=>{
-    const items=getGrapeSuggestions(q);
-    if(dl)dl.innerHTML=items.map(v=>`<option value="${esc(v)}">`).join('');
+  let chips=String(hidden.value||'').split(/[,;\n]+/).map(x=>x.trim()).filter(Boolean);
+  const syncHidden=()=>{hidden.value=chips.join(', ')};
+  const renderChips=()=>{
+    chipsEl.innerHTML=chips.map((g,i)=>`<span class="variety-chip">${esc(g)}<button type="button" class="variety-chip-x" data-i="${i}" aria-label="Удалить">×</button></span>`).join('');
+    chipsEl.querySelectorAll('.variety-chip-x').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();chips.splice(Number(b.dataset.i),1);syncHidden();renderChips()});
+    syncHidden();
+  };
+  const addChip=raw=>{
+    const v=String(raw||'').trim().replace(/\s+/g,' ');
+    if(!v)return;
+    const norm=normalizeGrape(v);
+    if(chips.some(c=>normalizeGrape(c)===norm)){input.value='';if(box)box.hidden=true;return}
+    chips.push(v);input.value='';if(box)box.hidden=true;renderChips();
+  };
+  const paint=()=>{
+    const q=input.value;
+    const items=getGrapeSuggestions(q).filter(v=>!chips.some(c=>normalizeGrape(c)===normalizeGrape(v)));
     if(!box)return;
-    if(!q||!items.length){box.hidden=true;box.innerHTML='';return}
+    if(!normalizeGrape(q)||!items.length){box.hidden=true;box.innerHTML='';return}
     box.hidden=false;
     box.innerHTML=items.map(v=>`<button type="button" class="grape-suggest-item" data-v="${esc(v)}">${esc(v)}</button>`).join('');
-    box.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{input.value=b.dataset.v;box.hidden=true});
+    box.querySelectorAll('[data-v]').forEach(b=>b.onclick=e=>{e.preventDefault();e.stopPropagation();addChip(b.dataset.v);input.focus()});
   };
-  input.addEventListener('input',()=>paint(input.value));
-  input.addEventListener('focus',()=>paint(input.value));
-  input.addEventListener('blur',()=>setTimeout(()=>{if(box)box.hidden=true},180));
-  paint(input.value);
+  input.addEventListener('input',paint);
+  input.addEventListener('keydown',e=>{
+    if(e.key==='Enter'){e.preventDefault();const first=box&&!box.hidden&&box.querySelector('.grape-suggest-item');if(first)addChip(first.dataset.v);else addChip(input.value)}
+    if(e.key==='Escape'){if(box)box.hidden=true}
+  });
+  input.addEventListener('blur',()=>setTimeout(()=>{if(document.activeElement&&(box&&box.contains(document.activeElement)))return;if(input.value.trim())addChip(input.value);if(box)box.hidden=true},160));
+  renderChips();
 }
 function renderPhotoManager(w){const root=$('photoManager');if(!root)return;const photos=w._photos&&w._photos.length?w._photos:(w._image?[w._image]:[]);root.innerHTML=photos.map((src,i)=>`<div class="photo-item"><img src="${src}" alt="Фото ${i+1}"><label><input type="radio" name="mainPhoto" value="${i}" ${i===0?'checked':''}> Основное</label><button type="button" class="btn secondary" data-remove-photo="${i}">Удалить</button></div>`).join('')||'<span class="sub">Фотографии ещё не добавлены.</span>';root.querySelectorAll('[data-remove-photo]').forEach(b=>b.onclick=()=>{const arr=photos.slice();arr.splice(Number(b.dataset.removePhoto),1);w._photos=arr;w._image=arr[0]||'';renderPhotoManager(w)});root.querySelectorAll('[name="mainPhoto"]').forEach(r=>r.onchange=()=>{const arr=photos.slice();const n=Number(r.value);if(n>0){const [main]=arr.splice(n,1);arr.unshift(main)}w._photos=arr;w._image=arr[0]||'';renderPhotoManager(w)})}
 function askWineDelete(message){return new Promise(resolve=>{const back=document.createElement('div');back.className='confirm-backdrop';back.innerHTML=`<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="confirmDeleteTitle"><h3 id="confirmDeleteTitle">Удалить вино?</h3><p>${esc(message)}</p><div class="confirm-actions"><button type="button" class="btn secondary" data-answer="no">Нет</button><button type="button" class="btn danger" data-answer="yes">Да, удалить</button></div></div>`;const finish=value=>{back.remove();resolve(value)};back.querySelector('[data-answer="no"]').onclick=()=>finish(false);back.querySelector('[data-answer="yes"]').onclick=()=>finish(true);back.addEventListener('click',e=>{if(e.target===back)finish(false)});back.addEventListener('keydown',e=>{if(e.key==='Escape')finish(false)});document.body.appendChild(back);back.querySelector('[data-answer="no"]').focus()})}
-$('adminBtn').onclick=()=>{if(!adminSession){showLogin();return}if(confirm('ОК — настройки сайта. Отмена — выйти из аккаунта администратора.'))openSettings();else{adminSession=null;localStorage.removeItem(SESSION_KEY);setAdminUI();setSyncStatus('Вышел из аккаунта. Каталог доступен только для просмотра.')}};
+$('adminBtn').onclick=()=>{if(!adminSession){showLogin();return}openSettings();};
 const themePicker=document.querySelector('.theme-picker'),themeTrigger=$('themeTrigger'),themeSwitch=$('themeSwitch');let themeCloseTimer=null;const openThemeMenu=()=>{if(themeCloseTimer){clearTimeout(themeCloseTimer);themeCloseTimer=null}themeSwitch.hidden=false;themeTrigger.setAttribute('aria-expanded','true')};const closeThemeMenu=()=>{if(themeCloseTimer)clearTimeout(themeCloseTimer);themeCloseTimer=setTimeout(()=>{themeSwitch.hidden=true;themeTrigger.setAttribute('aria-expanded','false');themeCloseTimer=null},450)};themePicker.addEventListener('pointerenter',openThemeMenu);themePicker.addEventListener('pointerleave',closeThemeMenu);themeSwitch.addEventListener('pointerenter',openThemeMenu);themeSwitch.addEventListener('pointerleave',closeThemeMenu);themePicker.addEventListener('focusin',openThemeMenu);themePicker.addEventListener('focusout',e=>{if(!themePicker.contains(e.relatedTarget))closeThemeMenu()});themeTrigger.onclick=e=>{e.preventDefault();openThemeMenu()};document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(themeCloseTimer)clearTimeout(themeCloseTimer);themeSwitch.hidden=true;themeTrigger.setAttribute('aria-expanded','false')}});document.querySelectorAll('[data-set-theme]').forEach(b=>b.addEventListener('click',()=>{setTheme(b.dataset.setTheme);openThemeMenu()}));
 /* Interactive slosh model: pointer acts like an object displacing liquid; bottom stays fixed. */
 document.querySelectorAll('.vial-stat').forEach(v=>{
@@ -2358,9 +2620,11 @@ document.querySelectorAll('.vial-stat').forEach(v=>{
  v.addEventListener('pointerleave',()=>{sim.hover=false;sim.lastX=sim.lastY=null;sim.lastT=0;});
  const rest=pathFor();body.setAttribute('d',rest.body);surface.setAttribute('d',rest.surface);
 });
-$('settingsForm').onsubmit=e=>{e.preventDefault();if(!adminSession){showLogin();return}const f=new FormData(e.target);siteSettings={brand:f.get('brand').trim()||DEFAULT_SETTINGS.brand,subtitle:f.get('subtitle').trim()||DEFAULT_SETTINGS.subtitle,headline:f.get('headline').trim()||DEFAULT_SETTINGS.headline,intro:f.get('intro').trim()||DEFAULT_SETTINGS.intro,eyebrow:f.get('eyebrow').trim()||DEFAULT_SETTINGS.eyebrow,catalogTitle:f.get('catalogTitle').trim()||DEFAULT_SETTINGS.catalogTitle};localStorage.setItem(SETTINGS_KEY,JSON.stringify(siteSettings));applySettings();$('settingsBack').style.display='none';$('brandText').textContent=siteSettings.brand;$('brandSubtitle').textContent=siteSettings.subtitle;if($('heroHeadline'))$('heroHeadline').innerHTML=esc(siteSettings.headline).replace(/\n/g,'<br>');if($('heroIntro'))$('heroIntro').textContent=siteSettings.intro;$('catalogHeading').textContent=siteSettings.catalogTitle};
+$('settingsForm').onsubmit=e=>{e.preventDefault();if(!adminSession){showLogin();return}readThemeDesignFields();const f=new FormData(e.target);const prevDesign=(siteSettings&&siteSettings.themeDesign)?siteSettings.themeDesign:null;siteSettings={brand:f.get('brand').trim()||DEFAULT_SETTINGS.brand,subtitle:f.get('subtitle').trim()||DEFAULT_SETTINGS.subtitle,headline:f.get('headline').trim()||DEFAULT_SETTINGS.headline,intro:f.get('intro').trim()||DEFAULT_SETTINGS.intro,eyebrow:f.get('eyebrow').trim()||DEFAULT_SETTINGS.eyebrow,catalogTitle:f.get('catalogTitle').trim()||DEFAULT_SETTINGS.catalogTitle,themeDesign:prevDesign};siteSettings=ensureThemeDesign(siteSettings);localStorage.setItem(SETTINGS_KEY,JSON.stringify(siteSettings));applySettings();$('settingsBack').style.display='none'};
+document.querySelectorAll('.theme-edit-tab').forEach(btn=>btn.addEventListener('click',()=>{readThemeDesignFields();editingThemeKey=btn.dataset.editTheme;document.querySelectorAll('.theme-edit-tab').forEach(b=>b.classList.toggle('active',b===btn));paintThemeDesignFields()}));
+if($('logoutBtn'))$('logoutBtn').onclick=()=>{adminSession=null;localStorage.removeItem(SESSION_KEY);setAdminUI();$('settingsBack').style.display='none';setSyncStatus('Вышел из аккаунта. Каталог доступен только для просмотра.')};
 $('closeSettings').onclick=()=>$('settingsBack').style.display='none';
-$('resetSettings').onclick=()=>{if(confirm('Вернуть исходные тексты и бордовую тему?')){siteSettings={...DEFAULT_SETTINGS};localStorage.removeItem(SETTINGS_KEY);applySettings();setTheme('red');openSettings()}};
+$('resetSettings').onclick=()=>{if(confirm('Вернуть исходные тексты и дизайн тем?')){siteSettings=ensureThemeDesign({...DEFAULT_SETTINGS,themeDesign:null});siteSettings.themeDesign={red:{...THEME_DESIGN_DEFAULTS.red},white:{...THEME_DESIGN_DEFAULTS.white},rose:{...THEME_DESIGN_DEFAULTS.rose}};localStorage.removeItem(SETTINGS_KEY);applySettings();setTheme('red');openSettings()}};
 $('editForm').onsubmit=async e=>{e.preventDefault();const obj={};for(const k of fields){let v=new FormData(e.target).get(k);if(v===''||v===null)obj[k]=null;else if(['Винтаж','Алк%','Цена','Рейтинг'].includes(k))obj[k]=Number(v);else obj[k]=v}obj._comment=$('wineCommentInput').value.trim();const old=editingIndex===null?{}:wines[editingIndex];obj._profile=old._profile||[0,0,0,0,0,0];let photos=(old._photos&&old._photos.length?old._photos:(old._image?[old._image]:[])).slice();const files=Array.from($('wineImageFile').files||[]);try{for(const file of files){photos.push(await fileToData(file))}}catch(err){alert('Не удалось обработать одну из фотографий. Попробуй другой формат изображения.');return}const main=Number(document.querySelector('[name="mainPhoto"]:checked')?.value||0);if(main>0&&main<photos.length){const [first]=photos.splice(main,1);photos.unshift(first)}obj._photos=photos;obj._image=photos[0]||'';if(editingIndex===null)wines.push(obj);else wines[editingIndex]=obj;try{saveData();$('editBack').style.display='none'}catch(err){alert('Не удалось сохранить данные. Возможно, изображения слишком большие для локального хранилища. Уменьши размер фотографий.')}};
 $('cancelEdit').onclick=()=>$('editBack').style.display='none';$('detailBack').onclick=e=>{if(e.target===$('detailBack'))$('detailBack').style.display='none'};$('editBack').onclick=e=>{if(e.target===$('editBack'))e.stopPropagation()};$('settingsBack').onclick=e=>{if(e.target===$('settingsBack'))$('settingsBack').style.display='none'};
 ['search','color','taste','country','variety','sort'].forEach(id=>$(id).addEventListener(id==='search'?'input':'change',()=>{currentPage=1;render()}));
@@ -3626,7 +3890,7 @@ html,body{
 }
 body{
   position:relative!important;
-  isolation:isolate!important;
+  isolation:auto!important;
 }
 body:after{display:none!important;}
 body:before{
@@ -3685,6 +3949,270 @@ body[data-theme="red"]:before{
 body[data-theme="red"] .wine-card,
 body[data-theme="red"] .card{
   background:linear-gradient(145deg,color-mix(in srgb,#1c1519 90%,#7e263d),#1c1519)!important;
+}
+</style>
+
+
+<style id="v54-settings-variety">
+.settings-modal{max-width:min(720px,96vw)!important;max-height:92vh;overflow:auto}
+.settings-section{margin:0 0 22px;padding:16px;border:1px solid var(--line);border-radius:12px;background:color-mix(in srgb,var(--panel2) 40%,transparent)}
+.settings-section-title{font:18px Georgia,serif;margin:0 0 12px;color:var(--gold)}
+.theme-edit-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.theme-edit-tab{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer}
+.theme-edit-tab.active{background:var(--wine);color:#fff;border-color:var(--wine)}
+.theme-design-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.color-field{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.color-row{display:flex;gap:8px;align-items:center}
+.color-row input[type=color]{width:42px;height:36px;border:1px solid var(--line);border-radius:8px;padding:0;background:transparent;cursor:pointer}
+.color-row input[type=text]{flex:1;min-width:0}
+.settings-actions{flex-wrap:wrap;gap:10px}
+.btn.danger{background:#6b1d2a;color:#ffe8ed}
+.variety-editor-label{display:flex;flex-direction:column;gap:8px}
+.variety-label-text{font-size:13px;color:var(--muted)}
+.variety-chips{display:flex;flex-wrap:wrap;gap:8px;min-height:0}
+.variety-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:color-mix(in srgb,var(--wine) 16%,var(--panel2));color:var(--text);border:1px solid color-mix(in srgb,var(--gold) 40%,var(--line));font-size:13px;pointer-events:auto}
+.variety-chip-x{border:0;background:transparent;color:var(--gold);font-size:16px;line-height:1;cursor:pointer;padding:0 2px}
+.variety-input-row input[type=text]{width:100%}
+.grape-suggest{position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:80;background:var(--panel);border:1px solid var(--line);border-radius:10px;max-height:200px;overflow:auto;box-shadow:0 12px 28px #0006}
+.variety-editor-label{position:relative}
+@media(max-width:640px){.theme-design-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style id="v55-header-bg-fix">
+/* Page bg is solid theme color; photo only in body:before top strip (controlled by JS) */
+html,body{background-image:none!important}
+body{background-color:var(--bg)!important}
+</style>
+
+
+<style id="v55-kill-old-banner">
+/* Let #customThemeDesign own header photo; keep a safe fallback only if JS not ready */
+body:before{
+  background-size:100% 100%, 100% auto!important;
+  height:min(42vw,480px)!important;
+  z-index:0!important;
+}
+</style>
+
+
+<style id="v56-unblack">
+html,body{min-height:100%;}
+body > .wrap{position:relative!important;z-index:2!important;visibility:visible!important;opacity:1!important}
+body:before{z-index:-1!important;pointer-events:none!important}
+header,main,.grid,.wine-card,.section-head,.redesign-toolbar,.hero{visibility:visible!important;opacity:1!important}
+</style>
+
+
+<style id="v57-header-art">
+#siteHeaderArt{position:fixed;top:0;left:0;right:0;height:min(40vw,420px);max-height:420px;z-index:0;pointer-events:none;overflow:hidden}
+#siteHeaderArt img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+body:before,body:after{content:none!important;display:none!important}
+body > .wrap{position:relative;z-index:2}
+</style>
+
+
+<style id="v59-pager-header">
+.catalog-bar{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px!important;
+  width:100%!important;
+}
+.catalog-bar .pagination-top,
+.catalog-bar #paginationTop{
+  margin-left:auto!important;
+  margin-right:0!important;
+  flex:0 0 auto!important;
+  display:flex!important;
+  justify-content:flex-end!important;
+  width:auto!important;
+}
+.catalog-bar .page-buttons{
+  justify-content:flex-end!important;
+}
+#pagination.pagination,
+.pagination:not(.pagination-top){
+  display:flex!important;
+  justify-content:flex-end!important;
+  width:100%!important;
+  margin:14px 0 8px!important;
+}
+#pagination .page-buttons,
+.pagination:not(.pagination-top) .page-buttons{
+  justify-content:flex-end!important;
+  margin-left:auto!important;
+}
+/* Header art more visible by default */
+#siteHeaderArt{
+  height:min(48vw,560px)!important;
+  max-height:560px!important;
+}
+#siteHeaderArt:after{
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    transparent 72%,
+    color-mix(in srgb, var(--bg) 15%, transparent) 86%,
+    color-mix(in srgb, var(--bg) 50%, transparent) 94%,
+    var(--bg) 100%)!important;
+}
+#siteHeaderArt{
+  height:min(52vw,620px)!important;
+  max-height:620px!important;
+}
+</style>
+
+
+<style id="v60-compare-header">
+#siteHeaderArt{
+  height:min(56vw,680px)!important;
+  max-height:680px!important;
+}
+#siteHeaderArt img{
+  object-fit:cover!important;
+  object-position:center 28%!important;
+}
+#siteHeaderArt:after{
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    transparent 82%,
+    color-mix(in srgb, var(--bg) 18%, transparent) 92%,
+    var(--bg) 100%)!important;
+}
+/* identical to pagination secondary */
+#compareBtn.btn.secondary{
+  background:color-mix(in srgb,var(--panel) 82%,transparent)!important;
+  color:var(--text)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:none!important;
+  font-weight:400!important;
+  padding:11px 15px!important;
+  border-radius:10px!important;
+}
+#paginationTop .btn.secondary,
+#pagination .btn.secondary,
+.pagination .btn.secondary{
+  background:color-mix(in srgb,var(--panel) 82%,transparent)!important;
+  color:var(--text)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:none!important;
+  font-weight:400!important;
+  padding:11px 15px!important;
+  border-radius:10px!important;
+}
+#compareBtn.btn.secondary:hover,
+#paginationTop .btn.secondary:hover,
+#pagination .btn.secondary:hover{
+  filter:brightness(1.05);
+}
+</style>
+
+
+<style id="v62-mobile">
+/* ========== Mobile only — desktop unchanged ========== */
+@media (max-width: 900px){
+  .wrap{padding:16px 12px 40px!important}
+  .grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  .redesign-toolbar{
+    flex-wrap:wrap!important;
+    overflow:visible!important;
+    gap:10px 12px!important;
+  }
+  .filter-control,.csel,.sort-control{
+    flex:1 1 calc(50% - 12px)!important;
+    min-width:140px!important;
+  }
+  .quantity-control{flex:0 0 auto!important}
+  .hero .stats{gap:10px!important}
+  .bottle-stage,.vial-stat{transform:scale(.85);transform-origin:center top}
+  #siteHeaderArt{height:min(58vw,420px)!important;max-height:420px!important}
+}
+@media (max-width: 640px){
+  .grid{grid-template-columns:1fr!important;gap:12px!important}
+  .wine-card{
+    grid-template-columns:100px minmax(0,1fr)!important;
+    gap:10px!important;
+    padding:10px!important;
+  }
+  .card-photo-wrap,.card-photo,.card-info{min-height:160px!important;max-height:none!important}
+  .card-photo{min-height:160px!important}
+  header{
+    flex-wrap:wrap!important;
+    gap:8px!important;
+  }
+  .header-logo{
+    letter-spacing:.18em!important;
+    font-size:clamp(14px,4vw,18px)!important;
+  }
+  .redesign-toolbar{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .filter-control,.csel,.sort-control,.quantity-control,.price-filter{
+    width:100%!important;
+    flex:1 1 auto!important;
+    min-width:0!important;
+  }
+  .csel-trigger,.filter-control select,.filter-control>input,.filter-control .price-trigger{
+    min-height:42px!important;
+    font-size:15px!important;
+  }
+  .catalog-bar{
+    flex-wrap:wrap!important;
+    gap:10px!important;
+  }
+  .catalog-bar .pagination-top,
+  .catalog-bar #paginationTop{
+    width:100%!important;
+    margin-left:0!important;
+    justify-content:flex-end!important;
+  }
+  .page-buttons{
+    flex-wrap:wrap!important;
+    justify-content:flex-end!important;
+    gap:8px!important;
+  }
+  .page-buttons .btn{
+    min-height:42px!important;
+    padding:10px 12px!important;
+  }
+  .hero{
+    flex-direction:column!important;
+    align-items:stretch!important;
+  }
+  .bottle-stage{
+    order: -1;
+    justify-content:center!important;
+    margin:8px auto 12px!important;
+  }
+  .vial-stat{transform:scale(.9)}
+  .section-head{
+    flex-direction:column!important;
+    align-items:flex-start!important;
+    gap:6px!important;
+  }
+  .theme-picker,.header-actions{gap:8px!important}
+  .theme-trigger,.settings-icon{
+    min-width:42px!important;
+    min-height:42px!important;
+  }
+  .modal{
+    max-width:100%!important;
+    margin:8px!important;
+    max-height:92vh!important;
+  }
+  .settings-modal{max-width:100%!important}
+  .theme-design-grid{grid-template-columns:1fr!important}
+  #siteHeaderArt{height:min(62vw,360px)!important;max-height:360px!important}
+  .stat strong{font-size:22px!important}
+}
+@media (max-width: 400px){
+  .wine-card{grid-template-columns:84px minmax(0,1fr)!important}
+  .header-logo{letter-spacing:.12em!important}
 }
 </style>
 
